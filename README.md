@@ -32,12 +32,64 @@ A public sentiment analysis dataset containing:
 ## Tech stack
 
 Typical dependencies for this pipeline:
-- Python 3.10+
+- Python 3.12 - 3.14
 - `pandas`, `numpy`
 - `scikit-learn`
 - HuggingFace `transformers` (or `sentence-transformers`)
 - `torch` (if required by the embedding model)
 - `matplotlib` (for plots)
+
+---
+
+## Poetry setup and Jupyter usage
+
+### 1) Install Poetry
+
+Linux / macOS:
+```bash
+curl -sSL https://install.python-poetry.org | python3 -
+```
+
+Add Poetry to your PATH (adjust for your shell):
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+Windows (PowerShell):
+```powershell
+(Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
+```
+
+Verify:
+```bash
+poetry --version
+```
+
+### 2) Create and activate the Poetry virtualenv
+
+From the repository root:
+```bash
+poetry env use 3.12
+poetry install --no-root
+poetry shell
+```
+
+If you do not want to install the project package, keep using `--no-root`.
+
+### 3) Run Jupyter using the Poetry environment
+
+Install Jupyter and the kernel:
+```bash
+poetry add jupyter ipykernel
+poetry run python -m ipykernel install --user --name llm-sentiment --display-name "LLM Sentiment (Poetry)"
+```
+
+Start Jupyter:
+```bash
+poetry run jupyter notebook
+```
+
+In the Jupyter UI, select the kernel named `LLM Sentiment (Poetry)` to run notebook cells inside the Poetry virtual environment.
 
 ---
 
