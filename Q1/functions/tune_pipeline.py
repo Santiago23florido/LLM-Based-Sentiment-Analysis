@@ -4,7 +4,12 @@ import pandas as pd
 from sklearn.model_selection import GridSearchCV, StratifiedKFold
 from sklearn.pipeline import Pipeline
 
-def tune_pipeline(vectorizer, model, param_grid, X_train, y_train, model_name, output_dir="outputs", refit_metric="f1_macro"):
+def tune_pipeline(vectorizer, model, param_grid, X_train, y_train, model_name,
+                  output_dir="outputs", refit_metric="f1_macro", use_parallel=True):
+    """
+    Tunes a model pipeline, exports the best estimator, and saves a ranked performance report.
+    Allows toggling parallel processing to manage memory for dense models.
+    """
     
     os.makedirs(output_dir, exist_ok=True)
 
@@ -21,13 +26,16 @@ def tune_pipeline(vectorizer, model, param_grid, X_train, y_train, model_name, o
 
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
+    # Set n_jobs to -1 (all cores) if parallel is enabled, otherwise 1
+    n_jobs_value = -1 if use_parallel else 1
+
     search = GridSearchCV(
         estimator=pipe,
         param_grid=param_grid,
         scoring=scoring,
         refit=refit_metric,
         cv=cv,
-        n_jobs=-1,
+        n_jobs=n_jobs_value,
         verbose=1
     )
 
@@ -39,11 +47,9 @@ def tune_pipeline(vectorizer, model, param_grid, X_train, y_train, model_name, o
     print(f"--- Best model saved to: {model_filename}")
 
     # 2. Save Tuning Report
-    # Extract results and sort them by the ranking of your chosen metric
     results_df = pd.DataFrame(search.cv_results_)
     rank_column = f"rank_test_{refit_metric}"
     
-    # Sort so the best model (Rank 1) is at the top
     results_df = results_df.sort_values(by=rank_column)
     
     report_filename = os.path.join(output_dir, f"{model_name.replace(' ', '_')}_tuning_report.csv")
