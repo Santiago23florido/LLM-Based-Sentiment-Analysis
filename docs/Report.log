@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.6)  18 JAN 2026 13:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.6)  18 JAN 2026 19:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -213,6 +213,45 @@ File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 \Gin@req@width=\dimen174
 ) (/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+) (/usr/share/texlive/texmf-dist/tex/latex/subfig/subfig.sty
+Package: subfig 2005/06/28 ver: 1.3 subfig package
+ (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+ (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen175
+\captionmargin=\dimen176
+\caption@leftmargin=\dimen177
+\caption@rightmargin=\dimen178
+\caption@width=\dimen179
+\caption@indent=\dimen180
+\caption@parindent=\dimen181
+\caption@hangindent=\dimen182
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used.
+Package caption Info: \@makecaption = \long macro:#1#2->\ifx \@captype \@IEEEtablestring \footnotesize \bgroup \par \centering \@IEEEtabletopskipstrut {\normalfont \footnotesize #1}\\{\normalfont \footnotesize \scshape #2}\par \addvspace {0.5\baselineskip }\egroup \@IEEEtablecaptionsepspace \else \@IEEEfigurecaptionsepspace \setbox \@tempboxa \hbox {\normalfont \footnotesize {#1.}\nobreakspace \nobreakspace #2}\ifdim \wd \@tempboxa >\hsize \setbox \@tempboxa \hbox {\normalfont \footnotesize {#1.}\nobreakspace \nobreakspace }\parbox [t]{\hsize }{\normalfont \footnotesize \noindent \unhbox \@tempboxa #2}\else \ifCLASSOPTIONconference \hbox to\hsize {\normalfont \footnotesize \hfil \box \@tempboxa \hfil }\else \hbox to\hsize {\normalfont \footnotesize \box \@tempboxa \hfil }\fi \fi \fi  on input line 1175.
+)
+
+Package caption Warning: Unknown document class (or package),
+(caption)                standard defaults will be used.
+See the caption package documentation for explanation.
+
+\c@caption@flags=\count284
+\c@continuedfloat=\count285
+)
+\c@KVtest=\count286
+\sf@farskip=\skip56
+\sf@captopadj=\dimen183
+\sf@capskip=\skip57
+\sf@nearskip=\skip58
+\c@subfigure=\count287
+\c@subfigure@save=\count288
+\c@lofdepth=\count289
+\c@subtable=\count290
+\c@subtable@save=\count291
+\c@lotdepth=\count292
+\sf@top=\skip59
+\sf@bottom=\skip60
 ) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2023/11/15 v3.01 LaTeX color extensions (UK)
  (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
@@ -231,39 +270,39 @@ Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
 ) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count284
+\l__color_backend_stack_int=\count293
 \l__pdf_internal_box=\box55
 ) (./Report.aux)
 \openout1 = `Report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
 
 -- Lines per column: 56 (exact).
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count285
-\scratchdimen=\dimen175
+\scratchcounter=\count294
+\scratchdimen=\dimen184
 \scratchbox=\box56
-\nofMPsegments=\count286
-\nofMParguments=\count287
+\nofMPsegments=\count295
+\nofMParguments=\count296
 \everyMPshowfont=\toks24
-\MPscratchCnt=\count288
-\MPscratchDim=\dimen176
-\MPnumerator=\count289
-\makeMPintoPDFobject=\count290
+\MPscratchCnt=\count297
+\MPscratchDim=\dimen185
+\MPnumerator=\count298
+\makeMPintoPDFobject=\count299
 \everyMPtoPDFconversion=\toks25
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -271,50 +310,124 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 37.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 37.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: subfig package v1.3 is loaded.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 38.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 38.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 37.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 38.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}
+)
+<images/Q0/Distribution_of_sentiments.png, id=1, 425.6703pt x 328.8285pt>
+File: images/Q0/Distribution_of_sentiments.png Graphic file (type png)
+<use images/Q0/Distribution_of_sentiments.png>
+Package pdftex.def Info: images/Q0/Distribution_of_sentiments.png  used on input line 77.
+(pdftex.def)             Requested size: 252.0pt x 194.67445pt.
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
 ]
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 120.
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 86.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
+<images/Q0/top20monogramsBoW.png, id=12, 1204.5pt x 501.875pt>
+File: images/Q0/top20monogramsBoW.png Graphic file (type png)
+<use images/Q0/top20monogramsBoW.png>
+Package pdftex.def Info: images/Q0/top20monogramsBoW.png  used on input line 121.
+(pdftex.def)             Requested size: 226.79846pt x 94.49954pt.
+<images/Q0/top20bigramsBoW.png, id=13, 1204.5pt x 501.875pt>
+File: images/Q0/top20bigramsBoW.png Graphic file (type png)
+<use images/Q0/top20bigramsBoW.png>
+Package pdftex.def Info: images/Q0/top20bigramsBoW.png  used on input line 125.
+(pdftex.def)             Requested size: 226.79846pt x 94.49954pt.
+<images/Q0/top20monogramstidf.png, id=14, 1204.5pt x 501.875pt>
+File: images/Q0/top20monogramstidf.png Graphic file (type png)
+<use images/Q0/top20monogramstidf.png>
+Package pdftex.def Info: images/Q0/top20monogramstidf.png  used on input line 134.
+(pdftex.def)             Requested size: 226.79846pt x 94.49954pt.
+<images/Q0/top20bigramstidf.png, id=15, 1204.5pt x 501.875pt>
+File: images/Q0/top20bigramstidf.png Graphic file (type png)
+<use images/Q0/top20bigramstidf.png>
+Package pdftex.def Info: images/Q0/top20bigramstidf.png  used on input line 139.
+(pdftex.def)             Requested size: 226.79846pt x 94.49954pt.
+ [2 <./images/Q0/Distribution_of_sentiments.png> <./images/Q0/top20monogramsBoW.png> <./images/Q0/top20bigramsBoW.png>]
+<images/Q0/sentimentsbyuser.png, id=31, 902.37125pt x 451.6875pt>
+File: images/Q0/sentimentsbyuser.png Graphic file (type png)
+<use images/Q0/sentimentsbyuser.png>
+Package pdftex.def Info: images/Q0/sentimentsbyuser.png  used on input line 153.
+(pdftex.def)             Requested size: 226.79846pt x 113.52121pt.
+<images/Q0/sentimentbytypeoftweet.png, id=32, 884.30376pt x 451.6875pt>
+File: images/Q0/sentimentbytypeoftweet.png Graphic file (type png)
+<use images/Q0/sentimentbytypeoftweet.png>
+Package pdftex.def Info: images/Q0/sentimentbytypeoftweet.png  used on input line 157.
+(pdftex.def)             Requested size: 226.79846pt x 115.84387pt.
 
-LaTeX Warning: Citation `b7' on page 2 undefined on input line 169.
+Underfull \vbox (badness 1694) has occurred while \output is active []
 
-[2]
+<images/Q0/sentimentbycountry.png, id=33, 884.30376pt x 451.6875pt>
+File: images/Q0/sentimentbycountry.png Graphic file (type png)
+<use images/Q0/sentimentbycountry.png>
+Package pdftex.def Info: images/Q0/sentimentbycountry.png  used on input line 167.
+(pdftex.def)             Requested size: 252.0pt x 128.7116pt.
+<images/Q0/wordcountsentiment.png, id=34, 884.30376pt x 451.6875pt>
+File: images/Q0/wordcountsentiment.png Graphic file (type png)
+<use images/Q0/wordcountsentiment.png>
+Package pdftex.def Info: images/Q0/wordcountsentiment.png  used on input line 176.
+(pdftex.def)             Requested size: 252.0pt x 128.7116pt.
+ [3 <./images/Q0/top20monogramstidf.png> <./images/Q0/top20bigramstidf.png> <./images/Q0/sentimentsbyuser.png> <./images/Q0/sentimentbytypeoftweet.png> <./images/Q0/sentimentbycountry.png>] [4 <./images/Q0/wordcountsentiment.png>]
 
-LaTeX Warning: Reference `fig' on page 3 undefined on input line 205.
+LaTeX Warning: Citation `b7' on page 5 undefined on input line 272.
 
-LaTeX Font Info:    Trying to load font information for OMS+ptm on input line 214.
+
+LaTeX Warning: Reference `fig' on page 5 undefined on input line 308.
+
+LaTeX Font Info:    Trying to load font information for OMS+ptm on input line 317.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 214.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 317.
 
-
-LaTeX Warning: Citation `b4' on page 3 undefined on input line 238.
-
-
-LaTeX Warning: Citation `b5' on page 3 undefined on input line 239.
-
-
-LaTeX Warning: Citation `b6' on page 3 undefined on input line 244.
-
-
-Underfull \hbox (badness 1430) in paragraph at lines 248--249
+Underfull \hbox (badness 1430) in paragraph at lines 351--352
 []\OT1/ptm/m/n/8 T. Finn and A. Downie, ``How can sen-ti-ment anal-y-sis be used
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 357--358
+[]\OT1/ptm/m/n/8 The NLTK Project, ``Sam-ple us-age for cor-pus,'' \OT1/ptm/m/it/8 NLTK
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 357--358
+\OT1/ptm/m/it/8 Doc-u-men-ta-tion\OT1/ptm/m/n/8 , ac-cessed Jan. 18, 2026. [On-line]. Avail-able:
+ []
+
+
+Underfull \hbox (badness 1533) in paragraph at lines 359--360
+\OT1/ptm/m/it/8 ta-tion\OT1/ptm/m/n/8 , ac-cessed Jan. 18, 2026. [On-line]. Avail-able: https://scikit-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 361--362
+\OT1/ptm/m/it/8 scikit-learn Doc-u-men-ta-tion\OT1/ptm/m/n/8 , ac-cessed Jan.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 361--362
+\OT1/ptm/m/n/8 18, 2026. [On-line]. Avail-able: https://scikit-
+ []
+
+
+Overfull \hbox (44.77293pt too wide) in paragraph at lines 361--362
+\OT1/ptm/m/n/8 learn.org/stable/modules/generated/sklearn.feature[]extraction.text.TfidfVectorizer.html 
+ []
+
+[5]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -326,7 +439,9 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[3] (./Report.aux)
+[6
+
+] (./Report.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -337,18 +452,18 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4246 strings out of 474222
- 66118 string characters out of 5748733
+ 5842 strings out of 474222
+ 97648 string characters out of 5748733
  1942975 words of memory out of 5000000
- 26457 multiletter control sequences out of 15000+600000
- 599439 words of font info for 115 fonts, out of 8000000 for 9000
+ 28041 multiletter control sequences out of 15000+600000
+ 600366 words of font info for 118 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,11n,65p,917b,334s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Report.pdf (3 pages, 125567 bytes).
+ 69i,11n,79p,1203b,384s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Report.pdf (6 pages, 344313 bytes).
 PDF statistics:
- 65 PDF objects out of 1000 (max. 8388607)
- 39 compressed objects within 1 object stream
+ 108 PDF objects out of 1000 (max. 8388607)
+ 55 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

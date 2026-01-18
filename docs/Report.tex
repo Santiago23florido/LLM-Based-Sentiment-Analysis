@@ -6,6 +6,7 @@
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
+\usepackage{subfig}
 \usepackage{xcolor}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -58,22 +59,124 @@ This project focuses on the automatic sentiment analysis of short English texts.
 
 Next, a multilayer perceptron (MLP) trained on vectorized text is evaluated, and an alternative based on BERT embeddings is studied to capture contextual semantics. To this end, the performance of MLP models built for each vectorization approach is compared across four network architectures, each adapted to the amount of information provided by the corresponding vectorizer or by BERT, and oriented toward a final three-class classification. In addition, an appropriate depth is defined according to the level of detail in the input representation in order to reduce overfitting on the training data. Dropout layers are also incorporated between hidden layers to further control overfitting and overtraining.
 
-Finally, in order to improve message classification, strategies based on large language models (LLMs) were evaluated by using the API version of the Gemma 3-ab-it (Gemini) model to compare its performance as a short-text classifier against the previously trained models. In addition, LoRA was used to perform an efficient fine-tuning of BERT-based transformers \cite{b3}.
+Finally, in order to improve message classification, strategies based on large language models (LLMs) were evaluated by using the API version of the Gemma 3-4b-it (Gemini) model to compare its performance as a short-text classifier against the previously trained models. In addition, LoRA was used to perform an efficient fine-tuning of BERT-based transformers \cite{b3}.
 
 
 
 
-\section{Ease of Use}
+\section{Q0-Dataset analysis with different classical machine learning model}
+The Sentiment Data Analysis dataset to which access is available is composed of sets of short tweets in English that are classified into three categories according to their polarity as positive, neutral, or negative in the ``sentiment'' column. Additionally, there is information related to the tweet metadata in terms of the time of day when it was published, the user's age, and their country of origin in the columns ``Age of User'' and ``country''.
 
-\subsection{Maintaining the Integrity of the Specifications}
+It is initially proposed to perform preprocessing of the text field, starting with the removal of null values and then, using NLTK, removing stopwords, which allows obtaining the processed text column without very frequent words in English that do not have a significant semantic contribution \cite{b4}.
 
-The IEEEtran class file is used to format your paper and style the text. All margins, 
-column widths, line spaces, and text fonts are prescribed; please do not 
-alter them. You may note peculiarities. For example, the head margin
-measures proportionately more than is customary. This measurement 
-and others are deliberate, using specifications that anticipate your paper 
-as one part of the entire proceedings, and not as an independent document. 
-Please do not revise any of the current designations.
+\subsection{Exploratory data analysis (EDA)}
+
+An analysis of the class distribution in the training data is performed. As shown in Fig. \ref{fig:q0-eda}, although the presence of neutral-polarity data exceeds the other classes, there is no substantial imbalance in the training dataset that could be associated with bias in the classifiers to be developed.
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\linewidth]{images/Q0/Distribution_of_sentiments.png}
+  \caption{Distribution of sentiments in training dataset.}
+  \label{fig:q0-eda}
+\end{figure}
+
+It is useful, prior to implementing some machine-learning strategies, to examine the behavior of groups of terms (bag-of-words) with respect to polarity classes, mainly from a frequency-based perspective. 
+
+This highlights the importance of the concept of a vectorizer, which is responsible for converting collections of texts—such as the content of the ``processed text'' column—into numerical vectors. This implies obtaining a sparse representation of each document after applying the vectorizer. This process is precisely known as vectorization, and depending on the way the numerical representation is constructed in the sparse matrix, it can be classified into several types. In this work, the following approaches are considered: BoW (Bag of Words), TF--IDF, and Char TF--IDF \cite{b5}.
+\begin{itemize}
+\item \textbf{BoW.} Represents a document by the occurrence of words in n-grams, ignoring the positions they occupy within the document. It builds a dictionary/vocabulary from the words in the corpus, assigns an index to each term, and then counts how many times each word appears in the document, storing those counts in the document vector. In scikit-learn, this is implemented by \texttt{CountVectorizer}, which ``converts a collection of text documents to a matrix of token counts'' \cite{b5}.
+
+\item \textbf{TF--IDF.} Starts from a principle similar to BoW in the sense that it also produces a sparse matrix representation; however, instead of relying only on raw frequency counts, it incorporates the inverse document frequency (IDF) term, which penalizes terms that appear in many documents \cite{b5}. Conceptually, the TF--IDF weight of a term $t$ in a document $d$ is computed as in Eq.~(\ref{eq:tfidf}), where $\mathrm{tf}(t,d)$ corresponds to the (raw) term frequency in $d$, and $\mathrm{idf}(t)$ assigns lower weights to terms that are widely distributed across the corpus.
+
+\begin{equation}
+\mathrm{tfidf}(t,d) = \mathrm{tf}(t,d)\times \mathrm{idf}(t).
+\label{eq:tfidf}
+\end{equation}
+
+In practice (and as implemented in common libraries such as scikit-learn), a smoothed version of IDF is typically used, defined in Eq.~(\ref{eq:idf}), where $n$ is the total number of documents in the corpus and $\mathrm{df}(t)$ is the number of documents that contain the term $t$.
+
+\begin{equation}
+\mathrm{idf}(t)=\log\left(\frac{1+n}{1+\mathrm{df}(t)}\right)+1.
+\label{eq:idf}
+\end{equation}
+
+Finally, after computing TF--IDF, it is common to normalize each document vector to control for differences in document length and to stabilize the scale of the features. In this work, $\ell_2$ normalization is considered, as shown in Eq.~(\ref{eq:l2norm}), where $\mathbf{v}$ denotes the TF--IDF vector of a document.
+
+\begin{equation}
+\mathbf{v}_{\mathrm{norm}}=\frac{\mathbf{v}}{\lVert \mathbf{v} \rVert_2}
+=\frac{\mathbf{v}}{\sqrt{v_1^2+v_2^2+\cdots+v_n^2}}.
+\label{eq:l2norm}
+\end{equation}
+
+\item \textbf{Char--IDF.} Consists of applying TF--IDF over character n-grams rather than word n-grams, which in scikit-learn can be controlled through the \texttt{analyzer} parameter of the vectorizer\cite{b6}.
+\end{itemize}
+
+After defining the vector representation schemes for the documents, it is proposed to use BoW to extract the 20 most frequent unigrams and bigrams within the training set. In the case of TF--IDF, the objective is to display the 20 unigrams and bigrams with the highest weights in the training dataset. The use of character n-grams is not proposed for this step because, by not forming complete words, the resulting features are less intelligible for the intended analysis.
+
+
+
+\begin{figure}[!ht]
+  \centering
+  \subfloat[Monograms]{
+    \includegraphics[width=0.9\linewidth]{images/Q0/top20monogramsBoW.png}
+    \label{fig:q0-bow-uni}}
+  \hfill
+  \subfloat[Bigrams]{
+    \includegraphics[width=0.9\linewidth]{images/Q0/top20bigramsBoW.png}
+    \label{fig:q0-bow-bi}}
+  \caption{Top 20 n-gramas with BoW.}
+  \label{fig:q0-bow}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \subfloat[Monograms]{
+    \includegraphics[width=0.9\linewidth]{images/Q0/top20monogramstidf.png}
+    \label{fig:q0-tfidf-uni}}
+  \hfill
+  \subfloat[Bigrams]{
+    \includegraphics[width=0.9\linewidth]{images/Q0/top20bigramstidf.png}
+
+    \label{fig:q0-tfidf-bi}}
+  \caption{Top 20 n-gramas with TF--IDF.}
+  \label{fig:q0-tfidf}
+\end{figure}
+
+By analyzing the results shown in Figs. \ref{fig:q0-bow} - \ref{fig:q0-tfidf}, it can be observed that some n-grams appearing under both methods correspond to words that, in everyday language use, are commonly associated with the polarity class in which they become most representative. This is the case for the unigram \emph{bad} or \emph{sorry} within the negative polarity class, which appears among the top terms for both vectorization methods. Nevertheless, it is evident that, since these are purely statistical approaches, words that were not removed during preprocessing but are very frequent in English usage—such as \emph{it}—may also appear. Similarly, certain bigrams that a speaker might classify as neutral, but that become frequent due to the data-collection context (e.g., \emph{feels like}), appear among the most representative n-grams across multiple classes. This anticipates one of the effects addressed in later stages: training models using frequency-based vectorizations, rather than embeddings that incorporate semantic information into the sparse vector representation of the documents.
+
+In addition to the processed text column, which is the main focus of this work, it is of interest to determine whether some of the other dataset columns exhibit any relationship with sentiment classification. To this end, the class distributions are analyzed as a function of the user's age and the time of day at which the tweet is published, as shown in Fig. \ref{fig:q0-sbuubtt} However, the class distribution for these categorical variables remains very similar across their respective domains in both cases; therefore, they are not considered relevant for training the sentiment classification model.
+
+\begin{figure}[!ht]
+
+  \centering
+  \subfloat[Sentiments by User]{
+    \includegraphics[width=0.9\linewidth]{images/Q0/sentimentsbyuser.png}
+    \label{fig:q0-sbu}}
+  \hfill
+  \subfloat[Sentiments by type of tweet]{
+    \includegraphics[width=0.9\linewidth]{images/Q0/sentimentbytypeoftweet.png}
+    \label{fig:q0-sbtt}}
+  \caption{Comparative sentiment distribution by category, stratified by user and tweet type}
+  \label{fig:q0-sbuubtt}
+\end{figure}
+
+In the case of the country in which the tweet is published, a distribution of the countries with the highest number of posts is analyzed in Fig. \ref{fig:q0-dcountry}. It is observed that the tweet counts do not vary in a markedly representative way among them, and although the class distributions are slightly different across countries, this feature is not included in later stages. One reason is that the model may ``memorize'' country-specific patterns that do not hold outside the dataset or that change over time. Additionally, given the shape of the country distribution, many countries have only a small number of examples, which generates rare features and increases the probability of overfitting. For these reasons, this column is ultimately not included in the analysis.
+
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\linewidth]{images/Q0/sentimentbycountry.png}
+  \caption{Distribution of sentiments in the top 10 countries.}
+  \label{fig:q0-dcountry}
+\end{figure}
+
+Finally, as a last analysis of the dataset, it is proposed to examine whether the length of the preprocessed text has any relationship with the class, and thus whether it could be worth including it as a variable during the training of the classification models. However, as shown in Fig. \ref{fig:q0-wordcount}, the distribution of the number of words per message for each class is comparable (or effectively equivalent). For this reason, this variable is also not considered relevant for the objective of the models constructed in the next stage.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\linewidth]{images/Q0/wordcountsentiment.png}
+  \caption{Word count distribution by sentiment}
+  \label{fig:q0-wordcount}
+\end{figure}
 
 \section{Prepare Your Paper Before Styling}
 Before you begin to format your paper, first write and save the content as a 
@@ -251,6 +354,11 @@ citation first, followed by the original foreign-language citation \cite{b6}.
 
 \bibitem{b3} E. J. Hu, Y. Shen, P. Wallis, Z. Allen-Zhu, Y. Li, S. Wang, L. Wang, and W. Chen, ``LoRA: Low-Rank Adaptation of Large Language Models,'' \emph{arXiv preprint} arXiv:2106.09685, Jun. 2021, doi: 10.48550/arXiv.2106.09685.
 
+\bibitem{b4} The NLTK Project, ``Sample usage for corpus,'' \emph{NLTK Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://www.nltk.org/howto/corpus.html
+
+\bibitem{b5} scikit-learn developers, ``Feature extraction,'' \emph{scikit-learn Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/feature\_extraction.html
+
+\bibitem{b6} scikit-learn developers, ``sklearn.feature\_extraction.text.TfidfVectorizer,'' \emph{scikit-learn Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.feature\_extraction.text.TfidfVectorizer.html
 
 \end{thebibliography}
 \vspace{12pt}
