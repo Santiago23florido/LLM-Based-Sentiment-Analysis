@@ -195,7 +195,7 @@ On the other hand, the hyperparameters associated with each model are specific t
 
 \item \textbf{Logistic Regression} \texttt{C} is a parameter that represents the inverse of the regularization strength: smaller values imply stronger regularization and, therefore, a lower risk of overfitting, whereas larger values imply weaker regularization and a model with more freedom in its parameters. The \texttt{penalty} option defines the type of regularization applied by the model: $L1$ penalizes the sum of absolute values of the coefficients, whereas $L2$ penalizes the sum of squared coefficients, which tends to shrink weights more smoothly and does not explicitly encourage sparse solutions where some coefficients become exactly zero. The \texttt{solver} parameter refers to the optimization algorithm used during training, and \texttt{max\_iter} indicates the maximum number of iterations allowed for the solver to converge \cite{b9}.
 
-\item \textbf{Support vector machine} The \texttt{C} parameter acts as the inverse of the regularization strength. The \texttt{estimator\_\_loss} hyperparameter is used to define the loss function of the linear SVM. A \texttt{max\_iter} parameter is also included to set the maximum number of iterations allowed for convergence\cite{b10}. In addition, the SVM is wrapped within \texttt{CalibratedClassifierCV}, which converts the output of the Support Vector Machine into class probabilities, making the predictions more interpretable and, therefore, more suitable for the pipeline hyperparameter-tuning procedure \cite{b11}.
+\item \textbf{Support vector machine} The \texttt{C} parameter acts as the inverse of the regularization strength. The \texttt{estimator\_\_loss} hyperparameter is used to define the loss function of the linear SVM. A \texttt{max\_iter} parameter is also included to set the maximum number of iterations allowed for convergencec. In addition, the SVM is wrapped within \texttt{CalibratedClassifierCV}, which converts the output of the Support Vector Machine into class probabilities, making the predictions more interpretable and, therefore, more suitable for the pipeline hyperparameter-tuning procedure \cite{b11}.
 
 \item \textbf{Random forest} \texttt{n\_estimators} specifies the number of trees (estimators) that are trained in the forest. The \texttt{max\_depth} parameter defines the maximum depth of each tree; when it is set to \texttt{None}, the tree is allowed to grow until its leaves satisfy the stopping requirement defined by \texttt{min\_samples\_leaf}. In contrast, when a finite value is used, the number of levels in the tree is restricted, reducing the number of nodes and acting as a regularization mechanism that can decrease the risk of overfitting. The \texttt{min\_samples\_split} parameter sets the minimum number of samples required to split an internal node; it can also be used to control overfitting, and therefore it may have a regularization effect as well. Finally, \texttt{class\_weight} is used to define class weights during training: \texttt{None} uses equal weights, while \texttt{balanced} adjusts weights as a function of the class frequencies in the training data in order to counteract class imbalance \cite{b12}.
 
@@ -205,173 +205,19 @@ With the set of defined parameters and a specific pipeline composed of a vectori
 
 After concluding the analysis of the method, the training of all pipelines composed of the referenced vectorizers and models is proposed by using the hyperparameter search algorithm, and the results of this process are discussed in the following section.
 
-\section{Prepare Your Paper Before Styling}
-Before you begin to format your paper, first write and save the content as a 
-separate text file. Complete all content and organizational editing before 
-formatting. Please note sections \ref{AA}--\ref{SCM} below for more information on 
-proofreading, spelling and grammar.
+\section{Q2-MLP Architectures for Short-Text Sentiment Classification}
 
-Keep your text and graphic files separate until after the text has been 
-formatted and styled. Do not number text heads---{\LaTeX} will do that 
-for you.
+In this section, it is proposed to employ multilayer perceptron (MLP) architectures for training classifiers that efficiently identify polarity in short English texts. In order to define the structure and training process of the set of MLPs that are implemented, it is proposed to first discuss the concrete pipeline that enables obtaining a final classification.
 
-\subsection{Abbreviations and Acronyms}\label{AA}
-Define abbreviations and acronyms the first time they are used in the text, 
-even after they have been defined in the abstract. Abbreviations such as 
-IEEE, SI, MKS, CGS, ac, dc, and rms do not have to be defined. Do not use 
-abbreviations in the title or heads unless they are unavoidable.
+The first element of the pipeline is the vectorizer, which can be of any of the three types previously considered. In order to define the hyperparameters of each vectorizer, the hyperparameter setting associated with the vectorizer is selected from the parameter grid of the best-performing pipeline that includes that specific vectorizer.
 
-\subsection{Units}
-\begin{itemize}
-\item Use either SI (MKS) or CGS as primary units. (SI units are encouraged.) English units may be used as secondary units (in parentheses). An exception would be the use of English units as identifiers in trade, such as ``3.5-inch disk drive''.
-\item Avoid combining SI and CGS units, such as current in amperes and magnetic field in oersteds. This often leads to confusion because equations do not balance dimensionally. If you must use mixed units, clearly state the units for each quantity that you use in an equation.
-\item Do not mix complete spellings and abbreviations of units: ``Wb/m\textsuperscript{2}'' or ``webers per square meter'', not ``webers/m\textsuperscript{2}''. Spell out units when they appear in text: ``. . . a few henries'', not ``. . . a few H''.
-\item Use a zero before decimal points: ``0.25'', not ``.25''. Use ``cm\textsuperscript{3}'', not ``cc''.)
-\end{itemize}
+In the case of the selected vectorizers for word-level TF--IDF and BoW, the number of resulting features is 6689. However, for character-level TF--IDF, as expected given the definition of its n-grams, the number of features exceeds 100{,}000 when no explicit limit is imposed. This makes the training of an MLP within this pipeline significantly more expensive in terms of GPU and RAM, and it would also require defining network structures different from those used with the other vectorizers. For this reason, the best-performing hyperparameter configuration for the character-level TF--IDF vectorizer is retained, but its number of features is restricted to 10{,}000 so that its dimensionality is comparable to that of the other vectorizers. This enables implementing equivalent MLP structures across pipelines, differing only in the input dimension of the first layer while keeping the same number of hidden layers, in a way that remains consistent.
 
-\subsection{Equations}
-Number equations consecutively. To make your 
-equations more compact, you may use the solidus (~/~), the exp function, or 
-appropriate exponents. Italicize Roman symbols for quantities and variables, 
-but not Greek symbols. Use a long dash rather than a hyphen for a minus 
-sign. Punctuate equations with commas or periods when they are part of a 
-sentence, as in:
-\begin{equation}
-a+b=\gamma\label{eq}
-\end{equation}
+The next element in the pipeline is the MLP used for classification; however, several components are required for training and defining its structure. The first of these is an object that converts the sparse matrix produced by the vectorizer into a matrix in Compressed Sparse Row (CSR) format, enabling efficient row-wise access, namely \texttt{SparseBoWDataset} \cite{b13}.
 
-Be sure that the 
-symbols in your equation have been defined before or immediately following 
-the equation. Use ``\eqref{eq}'', not ``Eq.~\eqref{eq}'' or ``equation \eqref{eq}'', except at 
-the beginning of a sentence: ``Equation \eqref{eq} is . . .''
+This CSR matrix is then used to construct a \texttt{DataLoader} a PyTorch iterator that, at each training epoch, traverses the training set and yields a batch of samples per iteration. Before each epoch, the samples are shuffled in order to reduce the risk of bias due to ordering effects. In this setup, \texttt{collate} acts as the function that converts the sparse batch matrices into dense matrices and then into PyTorch tensors, returning a dictionary of the form \{\texttt{"x"}: \texttt{X\_batch}, \texttt{"label"}: \texttt{y\_batch}\}, which is directly usable for the forward pass and for computing the loss \cite{b14}.
 
-\subsection{\LaTeX-Specific Advice}
-
-Please use ``soft'' (e.g., \verb|\eqref{Eq}|) cross references instead
-of ``hard'' references (e.g., \verb|(1)|). That will make it possible
-to combine sections, add equations, or change the order of figures or
-citations without having to go through the file line by line.
-
-Please don't use the \verb|{eqnarray}| equation environment. Use
-\verb|{align}| or \verb|{IEEEeqnarray}| instead. The \verb|{eqnarray}|
-environment leaves unsightly spaces around relation symbols.
-
-Please note that the \verb|{subequations}| environment in {\LaTeX}
-will increment the main equation counter even when there are no
-equation numbers displayed. If you forget that, you might write an
-article in which the equation numbers skip from (17) to (20), causing
-the copy editors to wonder if you've discovered a new method of
-counting.
-
-{\BibTeX} does not work by magic. It doesn't get the bibliographic
-data from thin air but from .bib files. If you use {\BibTeX} to produce a
-bibliography you must send the .bib files. 
-
-{\LaTeX} can't read your mind. If you assign the same label to a
-subsubsection and a table, you might find that Table I has been cross
-referenced as Table IV-B3. 
-
-{\LaTeX} does not have precognitive abilities. If you put a
-\verb|\label| command before the command that updates the counter it's
-supposed to be using, the label will pick up the last counter to be
-cross referenced instead. In particular, a \verb|\label| command
-should not go before the caption of a figure or a table.
-
-Do not use \verb|\nonumber| inside the \verb|{array}| environment. It
-will not stop equation numbers inside \verb|{array}| (there won't be
-any anyway) and it might stop a wanted equation number in the
-surrounding equation.
-
-\subsection{Some Common Mistakes}\label{SCM}
-\begin{itemize}
-\item The word ``data'' is plural, not singular.
-\item The subscript for the permeability of vacuum $\mu_{0}$, and other common scientific constants, is zero with subscript formatting, not a lowercase letter ``o''.
-\item In American English, commas, semicolons, periods, question and exclamation marks are located within quotation marks only when a complete thought or name is cited, such as a title or full quotation. When quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase, punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is punctuated within the parentheses.)
-\item A graph within a graph is an ``inset'', not an ``insert''. The word alternatively is preferred to the word ``alternately'' (unless you really mean something that alternates).
-\item Do not use the word ``essentially'' to mean ``approximately'' or ``effectively''.
-\item In your paper title, if the words ``that uses'' can accurately replace the word ``using'', capitalize the ``u''; if not, keep using lower-cased.
-\item Be aware of the different meanings of the homophones ``affect'' and ``effect'', ``complement'' and ``compliment'', ``discreet'' and ``discrete'', ``principal'' and ``principle''.
-\item Do not confuse ``imply'' and ``infer''.
-\item The prefix ``non'' is not a word; it should be joined to the word it modifies, usually without a hyphen.
-\item There is no period after the ``et'' in the Latin abbreviation ``et al.''.
-\item The abbreviation ``i.e.'' means ``that is'', and the abbreviation ``e.g.'' means ``for example''.
-\end{itemize}
-An excellent style manual for science writers is \cite{b7}.
-
-\subsection{Authors and Affiliations}
-\textbf{The class file is designed for, but not limited to, six authors.} A 
-minimum of one author is required for all conference articles. Author names 
-should be listed starting from left to right and then moving down to the 
-next line. This is the author sequence that will be used in future citations 
-and by indexing services. Names should not be listed in columns nor group by 
-affiliation. Please keep your affiliations as succinct as possible (for 
-example, do not differentiate among departments of the same organization).
-
-\subsection{Identify the Headings}
-Headings, or heads, are organizational devices that guide the reader through 
-your paper. There are two types: component heads and text heads.
-
-Component heads identify the different components of your paper and are not 
-topically subordinate to each other. Examples include Acknowledgments and 
-References and, for these, the correct style to use is ``Heading 5''. Use 
-``figure caption'' for your Figure captions, and ``table head'' for your 
-table title. Run-in heads, such as ``Abstract'', will require you to apply a 
-style (in this case, italic) in addition to the style provided by the drop 
-down menu to differentiate the head from the text.
-
-Text heads organize the topics on a relational, hierarchical basis. For 
-example, the paper title is the primary text head because all subsequent 
-material relates and elaborates on this one topic. If there are two or more 
-sub-topics, the next level head (uppercase Roman numerals) should be used 
-and, conversely, if there are not at least two sub-topics, then no subheads 
-should be introduced.
-
-\subsection{Figures and Tables}
-\paragraph{Positioning Figures and Tables} Place figures and tables at the top and 
-bottom of columns. Avoid placing them in the middle of columns. Large 
-figures and tables may span across both columns. Figure captions should be 
-below the figures; table heads should appear above the tables. Insert 
-figures and tables after they are cited in the text. Use the abbreviation 
-``Fig.~\ref{fig}'', even at the beginning of a sentence.
-
-
-Figure Labels: Use 8 point Times New Roman for Figure labels. Use words 
-rather than symbols or abbreviations when writing Figure axis labels to 
-avoid confusing the reader. As an example, write the quantity 
-``Magnetization'', or ``Magnetization, M'', not just ``M''. If including 
-units in the label, present them within parentheses. Do not label axes only 
-with units. In the example, write ``Magnetization (A/m)'' or ``Magnetization 
-\{A[m(1)]\}'', not just ``A/m''. Do not label axes with a ratio of 
-quantities and units. For example, write ``Temperature (K)'', not 
-``Temperature/K''.
-
-\section*{Acknowledgment}
-
-The preferred spelling of the word ``acknowledgment'' in America is without 
-an ``e'' after the ``g''. Avoid the stilted expression ``one of us (R. B. 
-G.) thanks $\ldots$''. Instead, try ``R. B. G. thanks$\ldots$''. Put sponsor 
-acknowledgments in the unnumbered footnote on the first page.
-
-\section*{References}
-
-Please number citations consecutively within brackets \cite{b1}. The 
-sentence punctuation follows the bracket \cite{b2}. Refer simply to the reference 
-number, as in \cite{b3}---do not use ``Ref. \cite{b3}'' or ``reference \cite{b3}'' except at 
-the beginning of a sentence: ``Reference \cite{b3} was the first $\ldots$''
-
-Number footnotes separately in superscripts. Place the actual footnote at 
-the bottom of the column in which it was cited. Do not put footnotes in the 
-abstract or reference list. Use letters for table footnotes.
-
-Unless there are six authors or more give all authors' names; do not use 
-``et al.''. Papers that have not been published, even if they have been 
-submitted for publication, should be cited as ``unpublished'' \cite{b4}. Papers 
-that have been accepted for publication should be cited as ``in press'' \cite{b5}. 
-Capitalize only the first word in a paper title, except for proper nouns and 
-element symbols.
-
-For papers published in translation journals, please give the English 
-citation first, followed by the original foreign-language citation \cite{b6}.
+After defining these components, the discussion can be completed regarding the proposed neural network structure to be implemented. In order to obtain a model that fits both the input requirements and the output classification task, a set of four moderately deep networks is proposed (3 or 4 hidden layers), while maintaining a common output head for the final three-class classification. The decision to limit depth is motivated by the fact that the input representations (BoW/TF--IDF/char or TF--IDF ) already condense a large portion of the discriminative information at the feature level; therefore, excessively increasing the number of layers can increase model variance and promote overfitting without a proportional gain in generalization.
 
 \begin{thebibliography}{00}
 
@@ -398,6 +244,10 @@ citation first, followed by the original foreign-language citation \cite{b6}.
 \bibitem{b11} scikit-learn developers, ``sklearn.calibration.CalibratedClassifierCV,'' \emph{scikit-learn Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.calibration.CalibratedClassifierCV.html
 
 \bibitem{b12} scikit-learn developers, ``sklearn.ensemble.RandomForestClassifier,'' \emph{scikit-learn Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
+
+\bibitem{b13} SciPy developers, ``scipy.sparse.csr\_matrix,'' \emph{SciPy Documentation}. [Online]. Available: https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr\_matrix.html. Accessed: Jan. 18, 2026.
+
+\bibitem{b14} PyTorch contributors, ``Data Loading and Processing Tutorial,'' \emph{PyTorch Tutorials}. [Online]. Available: https://docs.pytorch.org/tutorials/beginner/data\_loading\_tutorial.html. Accessed: Jan. 18, 2026.
 
 \end{thebibliography}
 \vspace{12pt}
