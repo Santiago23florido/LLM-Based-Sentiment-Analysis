@@ -169,14 +169,41 @@ In the case of the country in which the tweet is published, a distribution of th
   \label{fig:q0-dcountry}
 \end{figure}
 
-Finally, as a last analysis of the dataset, it is proposed to examine whether the length of the preprocessed text has any relationship with the class, and thus whether it could be worth including it as a variable during the training of the classification models. However, as shown in Fig. \ref{fig:q0-wordcount}, the distribution of the number of words per message for each class is comparable (or effectively equivalent). For this reason, this variable is also not considered relevant for the objective of the models constructed in the next stage.
-
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=\linewidth]{images/Q0/wordcountsentiment.png}
   \caption{Word count distribution by sentiment}
   \label{fig:q0-wordcount}
 \end{figure}
+
+Finally, as a last analysis of the dataset, it is proposed to examine whether the length of the preprocessed text has any relationship with the class, and thus whether it could be worth including it as a variable during the training of the classification models. However, as shown in Fig. \ref{fig:q0-wordcount}, the distribution of the number of words per message for each class is comparable (or effectively equivalent). For this reason, this variable is also not considered relevant for the objective of the models constructed in the next stage.
+
+\subsection{Classic model training}
+
+After the analysis and description of the dataset presented in the previous section, it is proposed to implement traditional machine-learning models that allow the classification of received and processed text messages into each of the three polarity (sentiment) categories. Within this work, the concept of classic machine learning models refers to supervised approaches that are not deep learning and do not rely on transformers or embeddings; instead, they operate on an explicit text representation obtained from the effect of one of the previously mentioned vectorizers. This enables following the workflow: document representation, classifier training, evaluation \cite{b7}.
+
+Within this framework, and considering the variability associated with each of the vectorizers described previously, it is proposed that, for each text representation, a set of classifiers is trained using classic machine-learning algorithms: Multinomial Naive Bayes, Logistic Regression, Support Vector Machine, and Random Forest. However, given the variability of the hyperparameters associated with each classifier and with the vectorizer itself, a hyperparameter search is performed over a pipeline composed of the vectorizer and the selected model, and evaluated via stratified cross-validation. The approach compares the performance obtained for each candidate hyperparameter configuration across the cross-validation folds, and selects the configuration that maximizes a chosen metric. Finally, the best-performing pipeline is refit on the full training set using the selected hyperparameter setting.
+
+In order to adequately describe the operation of the training algorithm that is employed, it is first proposed to detail the influence of each of the hyperparameters considered for every element of the pipeline, both in the case of the vectorizers and in the case of the trained models.
+
+It is convenient to begin with the hyperparameters associated with the vectorizer within the pipeline. The first of these is \texttt{ngram\_range}, which is a parameter defined as an array of tuples indicating the size of the n-grams that are considered in the construction of the vector representation. These n-grams correspond to words in the case of BoW, to word n-grams in the case of word-level TF--IDF, and to character n-grams in the case of character-level TF--IDF. The \texttt{min\_df} parameter, in turn, contains a set of minimum thresholds to be evaluated for the document-frequency criterion, that is, the minimum number of documents in which an n-gram must appear in order to be considered. This is useful for removing very rare terms from the representation. The \texttt{max\_df} parameter specifies the maximum document frequency an n-gram can have to be included in the vectorization, which is useful for removing n-grams that are too frequent and therefore provide limited discriminative information. Finally, \texttt{max\_features} contains a set of candidate values, where each value corresponds to a limit on the number of features that is tested during the hyperparameter-search phase in order to constrain the vocabulary size, mainly as a function of frequency and computational cost. This limitation is particularly important to adapt the training of the neural networks that are preceded by character-level vectorization in Question Q2, as will be detailed later.
+
+On the other hand, the hyperparameters associated with each model are specific to each algorithm, depending on its nature and mathematical formulation, and they are described below:
+
+\begin{itemize}
+\item \textbf{Multinomial Naive Bayes} \texttt{alpha} is an additive smoothing parameter whose main objective is to avoid zero probabilities in the case where a feature does not appear in the training data. Recall that Naive Bayes is formulated as a product of conditional probabilities under an independence assumption; in this context, smoothing works by artificially increasing the observed counts by the value of $\alpha$ \cite{b8}.
+
+\item \textbf{Logistic Regression} \texttt{C} is a parameter that represents the inverse of the regularization strength: smaller values imply stronger regularization and, therefore, a lower risk of overfitting, whereas larger values imply weaker regularization and a model with more freedom in its parameters. The \texttt{penalty} option defines the type of regularization applied by the model: $L1$ penalizes the sum of absolute values of the coefficients, whereas $L2$ penalizes the sum of squared coefficients, which tends to shrink weights more smoothly and does not explicitly encourage sparse solutions where some coefficients become exactly zero. The \texttt{solver} parameter refers to the optimization algorithm used during training, and \texttt{max\_iter} indicates the maximum number of iterations allowed for the solver to converge \cite{b9}.
+
+\item \textbf{Support vector machine} The \texttt{C} parameter acts as the inverse of the regularization strength. The \texttt{estimator\_\_loss} hyperparameter is used to define the loss function of the linear SVM. A \texttt{max\_iter} parameter is also included to set the maximum number of iterations allowed for convergence\cite{b10}. In addition, the SVM is wrapped within \texttt{CalibratedClassifierCV}, which converts the output of the Support Vector Machine into class probabilities, making the predictions more interpretable and, therefore, more suitable for the pipeline hyperparameter-tuning procedure \cite{b11}.
+
+\item \textbf{Random forest} \texttt{n\_estimators} specifies the number of trees (estimators) that are trained in the forest. The \texttt{max\_depth} parameter defines the maximum depth of each tree; when it is set to \texttt{None}, the tree is allowed to grow until its leaves satisfy the stopping requirement defined by \texttt{min\_samples\_leaf}. In contrast, when a finite value is used, the number of levels in the tree is restricted, reducing the number of nodes and acting as a regularization mechanism that can decrease the risk of overfitting. The \texttt{min\_samples\_split} parameter sets the minimum number of samples required to split an internal node; it can also be used to control overfitting, and therefore it may have a regularization effect as well. Finally, \texttt{class\_weight} is used to define class weights during training: \texttt{None} uses equal weights, while \texttt{balanced} adjusts weights as a function of the class frequencies in the training data in order to counteract class imbalance \cite{b12}.
+
+\end{itemize}
+
+With the set of defined parameters and a specific pipeline composed of a vectorizer and a supervised learning model, a parameter grid is constructed. From this grid, the candidate combinations are enumerated and the performance of each combination is estimated via 5-fold cross-validation, aggregating the metrics across folds in order to obtain a more robust representation of the estimated model. Once the grid-search algorithm identifies an optimal configuration, the selected pipeline is retrained on the full training set. It is worth emphasizing that this design also includes the possibility of enabling or disabling parallelism in each training run, depending on the specific requirements of each execution of the training algorithm.
+
+After concluding the analysis of the method, the training of all pipelines composed of the referenced vectorizers and models is proposed by using the hyperparameter search algorithm, and the results of this process are discussed in the following section.
 
 \section{Prepare Your Paper Before Styling}
 Before you begin to format your paper, first write and save the content as a 
@@ -359,6 +386,18 @@ citation first, followed by the original foreign-language citation \cite{b6}.
 \bibitem{b5} scikit-learn developers, ``Feature extraction,'' \emph{scikit-learn Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/feature\_extraction.html
 
 \bibitem{b6} scikit-learn developers, ``sklearn.feature\_extraction.text.TfidfVectorizer,'' \emph{scikit-learn Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.feature\_extraction.text.TfidfVectorizer.html
+
+\bibitem{b7} F. Sebastiani, ``Machine Learning in Automated Text Categorization,'' \emph{ACM Computing Surveys}, vol. 34, no. 1, pp. 1--47, Mar. 2002, doi: 10.1145/505282.505283. [Online]. Available: https://nmis.isti.cnr.it/sebastiani/Publications/ACMCS02.pdf
+
+\bibitem{b8} scikit-learn developers, ``sklearn.naive\_bayes.MultinomialNB,'' \emph{scikit-learn Documentation}. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.naive\_bayes.MultinomialNB.html. Accessed: Jan. 18, 2026.
+
+\bibitem{b9} scikit-learn developers, ``sklearn.linear\_model.LogisticRegression,'' \emph{scikit-learn Documentation}. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.linear\_model.LogisticRegression.html. Accessed: Jan. 18, 2026.
+
+\bibitem{b10} scikit-learn developers, ``sklearn.svm.LinearSVC,'' \emph{scikit-learn Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html
+
+\bibitem{b11} scikit-learn developers, ``sklearn.calibration.CalibratedClassifierCV,'' \emph{scikit-learn Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.calibration.CalibratedClassifierCV.html
+
+\bibitem{b12} scikit-learn developers, ``sklearn.ensemble.RandomForestClassifier,'' \emph{scikit-learn Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
 
 \end{thebibliography}
 \vspace{12pt}

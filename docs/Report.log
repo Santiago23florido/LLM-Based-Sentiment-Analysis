@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.6)  18 JAN 2026 19:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.6)  18 JAN 2026 22:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -377,57 +377,191 @@ Package pdftex.def Info: images/Q0/sentimentbycountry.png  used on input line 16
 <images/Q0/wordcountsentiment.png, id=34, 884.30376pt x 451.6875pt>
 File: images/Q0/wordcountsentiment.png Graphic file (type png)
 <use images/Q0/wordcountsentiment.png>
-Package pdftex.def Info: images/Q0/wordcountsentiment.png  used on input line 176.
+Package pdftex.def Info: images/Q0/wordcountsentiment.png  used on input line 174.
 (pdftex.def)             Requested size: 252.0pt x 128.7116pt.
- [3 <./images/Q0/top20monogramstidf.png> <./images/Q0/top20bigramstidf.png> <./images/Q0/sentimentsbyuser.png> <./images/Q0/sentimentbytypeoftweet.png> <./images/Q0/sentimentbycountry.png>] [4 <./images/Q0/wordcountsentiment.png>]
+ [3 <./images/Q0/top20monogramstidf.png> <./images/Q0/top20bigramstidf.png> <./images/Q0/sentimentsbyuser.png> <./images/Q0/sentimentbytypeoftweet.png> <./images/Q0/sentimentbycountry.png>]
+Underfull \hbox (badness 5274) in paragraph at lines 198--199
+[]\OT1/ptm/b/n/10 Support vec-tor ma-chine \OT1/ptm/m/n/10 The \OT1/pcr/m/n/10 C \OT1/ptm/m/n/10 pa-ram-e-ter acts
+ []
 
-LaTeX Warning: Citation `b7' on page 5 undefined on input line 272.
+
+Underfull \hbox (badness 2913) in paragraph at lines 198--199
+\OT1/ptm/m/n/10 as the in-verse of the reg-u-lar-iza-tion strength. The
+ []
 
 
-LaTeX Warning: Reference `fig' on page 5 undefined on input line 308.
+Underfull \hbox (badness 10000) in paragraph at lines 198--199
+\OT1/pcr/m/n/10 estimator__loss \OT1/ptm/m/n/10 hy-per-pa-ram-e-ter is used to
+ []
 
-LaTeX Font Info:    Trying to load font information for OMS+ptm on input line 317.
+
+Underfull \hbox (badness 4805) in paragraph at lines 198--199
+\OT1/ptm/m/n/10 de-fine the loss func-tion of the lin-ear SVM. A
+ []
+
+
+Underfull \hbox (badness 2591) in paragraph at lines 198--199
+\OT1/pcr/m/n/10 max_iter \OT1/ptm/m/n/10 pa-ram-e-ter is also in-cluded to set the
+ []
+
+
+Underfull \hbox (badness 7397) in paragraph at lines 198--199
+\OT1/ptm/m/n/10 [10]. In ad-di-tion, the SVM is wrapped within
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 198--199
+\OT1/pcr/m/n/10 CalibratedClassifierCV\OT1/ptm/m/n/10 , which con-verts
+ []
+
+
+Underfull \hbox (badness 5832) in paragraph at lines 198--199
+\OT1/ptm/m/n/10 the out-put of the Sup-port Vec-tor Ma-chine into
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 198--199
+\OT1/ptm/m/n/10 class prob-a-bil-i-ties, mak-ing the pre-dic-tions more
+ []
+
+
+Underfull \hbox (badness 3439) in paragraph at lines 198--199
+\OT1/ptm/m/n/10 in-ter-pretable and, there-fore, more suit-able for the
+ []
+
+
+Underfull \vbox (badness 4543) has occurred while \output is active []
+
+ [4 <./images/Q0/wordcountsentiment.png>] [5]
+
+LaTeX Warning: Reference `fig' on page 6 undefined on input line 335.
+
+LaTeX Font Info:    Trying to load font information for OMS+ptm on input line 344.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 317.
-
-Underfull \hbox (badness 1430) in paragraph at lines 351--352
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 344.
+ [6]
+Underfull \hbox (badness 1430) in paragraph at lines 378--379
 []\OT1/ptm/m/n/8 T. Finn and A. Downie, ``How can sen-ti-ment anal-y-sis be used
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 357--358
+Underfull \hbox (badness 10000) in paragraph at lines 384--385
 []\OT1/ptm/m/n/8 The NLTK Project, ``Sam-ple us-age for cor-pus,'' \OT1/ptm/m/it/8 NLTK
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 357--358
+Underfull \hbox (badness 10000) in paragraph at lines 384--385
 \OT1/ptm/m/it/8 Doc-u-men-ta-tion\OT1/ptm/m/n/8 , ac-cessed Jan. 18, 2026. [On-line]. Avail-able:
  []
 
 
-Underfull \hbox (badness 1533) in paragraph at lines 359--360
+Underfull \hbox (badness 1533) in paragraph at lines 386--387
 \OT1/ptm/m/it/8 ta-tion\OT1/ptm/m/n/8 , ac-cessed Jan. 18, 2026. [On-line]. Avail-able: https://scikit-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 361--362
+Underfull \hbox (badness 10000) in paragraph at lines 388--389
 \OT1/ptm/m/it/8 scikit-learn Doc-u-men-ta-tion\OT1/ptm/m/n/8 , ac-cessed Jan.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 361--362
+Underfull \hbox (badness 10000) in paragraph at lines 388--389
 \OT1/ptm/m/n/8 18, 2026. [On-line]. Avail-able: https://scikit-
  []
 
 
-Overfull \hbox (44.77293pt too wide) in paragraph at lines 361--362
+Overfull \hbox (44.77293pt too wide) in paragraph at lines 388--389
 \OT1/ptm/m/n/8 learn.org/stable/modules/generated/sklearn.feature[]extraction.text.TfidfVectorizer.html 
  []
 
-[5]
+
+Underfull \hbox (badness 5504) in paragraph at lines 390--391
+[]\OT1/ptm/m/n/8 F. Se-bas-tiani, ``Ma-chine Learn-ing in Au-to-mated Text Cat-e-go-
+ []
+
+
+Underfull \hbox (badness 6808) in paragraph at lines 390--391
+\OT1/ptm/m/n/8 riza-tion,'' \OT1/ptm/m/it/8 ACM Com-put-ing Sur-veys\OT1/ptm/m/n/8 , vol. 34, no. 1, pp. 1--
+ []
+
+
+Underfull \hbox (badness 2035) in paragraph at lines 390--391
+\OT1/ptm/m/n/8 47, Mar. 2002, doi: 10.1145/505282.505283. [On-line]. Avail-able:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 392--393
+[]\OT1/ptm/m/n/8 scikit-learn de-vel-op-ers, ``sklearn.naive[]bayes.MultinomialNB,''
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 392--393
+\OT1/ptm/m/it/8 scikit-learn Doc-u-men-ta-tion\OT1/ptm/m/n/8 . [On-line]. Avail-able: https://scikit-
+ []
+
+
+Overfull \hbox (16.72516pt too wide) in paragraph at lines 392--393
+\OT1/ptm/m/n/8 learn.org/stable/modules/generated/sklearn.naive[]bayes.MultinomialNB.html.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 394--395
+[]\OT1/ptm/m/n/8 scikit-learn de-vel-op-ers, ``sklearn.linear[]model.LogisticRegression,''
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 394--395
+\OT1/ptm/m/it/8 scikit-learn Doc-u-men-ta-tion\OT1/ptm/m/n/8 . [On-line]. Avail-able: https://scikit-
+ []
+
+
+Overfull \hbox (30.25291pt too wide) in paragraph at lines 394--395
+\OT1/ptm/m/n/8 learn.org/stable/modules/generated/sklearn.linear[]model.LogisticRegression.html.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 398--399
+[]\OT1/ptm/m/n/8 scikit-learn de-vel-op-ers, ``sklearn.calibration.CalibratedClassifierCV,''
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 398--399
+\OT1/ptm/m/it/8 scikit-learn Doc-u-men-ta-tion\OT1/ptm/m/n/8 , ac-cessed Jan.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 398--399
+\OT1/ptm/m/n/8 18, 2026. [On-line]. Avail-able: https://scikit-
+ []
+
+
+Overfull \hbox (32.22859pt too wide) in paragraph at lines 398--399
+\OT1/ptm/m/n/8 learn.org/stable/modules/generated/sklearn.calibration.CalibratedClassifierCV.html 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 400--401
+[]\OT1/ptm/m/n/8 scikit-learn de-vel-op-ers, ``sklearn.ensemble.RandomForestClassifier,''
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 400--401
+\OT1/ptm/m/it/8 scikit-learn Doc-u-men-ta-tion\OT1/ptm/m/n/8 , ac-cessed Jan.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 400--401
+\OT1/ptm/m/n/8 18, 2026. [On-line]. Avail-able: https://scikit-
+ []
+
+
+Overfull \hbox (31.37286pt too wide) in paragraph at lines 400--401
+\OT1/ptm/m/n/8 learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html 
+ []
+
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -439,7 +573,7 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[6
+[7
 
 ] (./Report.aux)
  ***********
@@ -452,18 +586,18 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 5842 strings out of 474222
- 97648 string characters out of 5748733
- 1942975 words of memory out of 5000000
- 28041 multiletter control sequences out of 15000+600000
+ 5847 strings out of 474222
+ 97671 string characters out of 5748733
+ 1941975 words of memory out of 5000000
+ 28046 multiletter control sequences out of 15000+600000
  600366 words of font info for 118 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,11n,79p,1203b,384s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 69i,11n,79p,1584b,384s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Report.pdf (6 pages, 344313 bytes).
+Output written on Report.pdf (7 pages, 353250 bytes).
 PDF statistics:
- 108 PDF objects out of 1000 (max. 8388607)
- 55 compressed objects within 1 object stream
+ 113 PDF objects out of 1000 (max. 8388607)
+ 59 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
