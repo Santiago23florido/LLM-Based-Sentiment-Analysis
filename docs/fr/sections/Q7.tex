@@ -1,0 +1,64 @@
+\section{Q7---Fine-tuning avec LoRA pour la classification de sentiment}
+\label{sec:q7}
+
+LoRA (\emph{Low-Rank Adaptation}) est une m\'ethode de \emph{Parameter-Efficient Fine-Tuning} (PEFT) permettant d'adapter des mod\`eles pr\'eentra\^{\i}n\'es (p.\ ex.\ Transformers) sans mettre \`a jour l'ensemble des param\`etres. Les poids d'origine sont gel\'es et de petites matrices de rang faible, entra\^{\i}nables, sont inject\'ees dans certaines couches (souvent des projections lin\'eaires de l'attention). Cela r\'eduit fortement le nombre de param\`etres entra\^{\i}nables et le co\^ut d'entra\^{\i}nement/m\'emoire, tout en conservant la capacit\'e de sp\'ecialisation \`a la t\^ache.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\linewidth]{images/Q7/BERT_+_LoRA_(SEQ_CLS)_Full_Report.png}
+  \caption{Rapport d'\'evaluation complet pour \textbf{BERT + LoRA (SEQ\_CLS)} sur test.}
+  \label{fig:q7-bert-lora-full-report}
+\end{figure}
+
+\subsection{Aper\c{c}u d'impl\'ementation}
+\label{subsec:q7-impl}
+
+Le pipeline suit un sch\'ema standard :
+(1) pr\'eparation du jeu de donn\'ees et split \emph{train/validation/test} ;
+(2) tokenisation via le tokenizer du mod\`ele de base ;
+(3) chargement d'un mod\`ele de classification (\texttt{AutoModelForSequenceClassification}) ;
+(4) injection des adaptateurs LoRA via \texttt{get\_peft\_model} ;
+(5) entra\^{\i}nement avec \texttt{Trainer} et \texttt{TrainingArguments} ;
+(6) \'evaluation finale sur test (voir Fig.~\ref{fig:q7-bert-lora-full-report}).
+
+\subsection{Configuration LoRA (justification)}
+\label{subsec:q7-lora-params}
+
+La configuration retenue est :
+\begin{itemize}
+    \item \textbf{\texttt{task\_type=TaskType.SEQ\_CLS}} : PEFT configur\'e pour la classification de s\'equences.
+    \item \textbf{\texttt{target\_modules=["query","value"]}} : injection dans des projections influentes (Q/V), bon compromis capacit\'e/co\^ut.
+    \item \textbf{\texttt{r=8}} : rang (capacit\'e) mod\'er\'e, adapt\'e \`a l'analyse de sentiment.
+    \item \textbf{\texttt{lora\_alpha=16}} : facteur d'\'echelle des mises \`a jour LoRA.
+    \item \textbf{\texttt{lora\_dropout=0.1}} : r\'egularisation du chemin LoRA pour limiter le sur-apprentissage.
+\end{itemize}
+
+\subsection{R\'esultats sur test : BERT + LoRA (SEQ\_CLS)}
+\label{subsec:q7-results}
+
+Le mod\`ele \textbf{BERT + LoRA (SEQ\_CLS)} obtient :
+\begin{itemize}
+    \item Accuracy = 0.761
+    \item Macro-Recall = 0.760
+    \item Macro-F1 = 0.763
+\end{itemize}
+Il rapporte en outre un ROC-AUC pond\'er\'e de 0.901, et des AUC par classe de 0.91 (classe 0), 0.86 (classe 1) et 0.94 (classe 2), ce qui indique une bonne s\'eparabilit\'e globale (Fig.~\ref{fig:q7-bert-lora-full-report}).
+
+\subsection{Comparaison directe avec la baseline embeddings BERT (LinearHead 768$\rightarrow$3)}
+\label{subsec:q7-compare-bert-baseline}
+
+Par rapport \`a la baseline pr\'ec\'edente (\emph{Approach = MLP; Representation = BERT; Model = LinearHead(768$\rightarrow$3)}), qui rapporte
+Acc = 0.664, Macro-R = 0.662, et Macro-F1 = 0.666,
+LoRA am\'eliore de mani\`ere coh\'erente toutes les m\'etriques :
+\begin{itemize}
+    \item \textbf{Accuracy :} $0.761$ vs.\ $0.664$ $\Rightarrow$ $+0.097$ (environ $+14.6\%$ relatif)
+    \item \textbf{Macro-Recall :} $0.760$ vs.\ $0.662$ $\Rightarrow$ $+0.098$ (environ $+14.8\%$ relatif)
+    \item \textbf{Macro-F1 :} $0.763$ vs.\ $0.666$ $\Rightarrow$ $+0.097$ (environ $+14.6\%$ relatif)
+\end{itemize}
+
+Ces gains sont coh\'erents avec l'objectif de LoRA : au lieu d'entra\^{\i}ner uniquement une t\^ete sur des embeddings fig\'es, l'encodeur est l\'eg\`erement adapt\'e via des mises \`a jour de rang faible dans des modules d'attention, ce qui am\'eliore la repr\'esentation interne pour la classification.
+
+\subsection{Positionnement dans le projet}
+\label{subsec:q7-positioning}
+
+Avec Macro-F1 = 0.763, \textbf{BERT + LoRA (SEQ\_CLS)} d\'epasse la baseline BERT + LinearHead ainsi que les meilleurs pipelines classiques/MLP rapport\'es auparavant (cf.\ Table~\ref{tab:q3-classical-vs-mlp}). Ce mod\`ele constitue donc, \`a ce stade, le meilleur mod\`ele entra\^{\i}n\'e du projet.

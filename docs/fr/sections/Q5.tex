@@ -1,0 +1,42 @@
+\section{Q5---Embeddings BERT vs repr\'esentations brutes}
+
+Bien que la diff\'erence entre (i) des repr\'esentations fond\'ees sur des fr\'equences (BoW/TF--IDF) et (ii) des embeddings BERT ait d\'ej\`a \'et\'e abord\'ee en Q2, cette section d\'etaille plus explicitement les diff\'erences conceptuelles entre ces familles.
+
+BERT est un encodeur transformeur pr\'eentra\^{\i}n\'e pour produire des repr\'esentations contextuelles bidirectionnelles : chaque token est encod\'e en tenant compte du contexte \`a gauche et \`a droite \cite{b18}. Apr\`es pooling, un embedding dense de dimension fixe (768) est obtenu par texte, et sert d'entr\'ee au classifieur. Cette r\'eduction de dimension par rapport \`a TF--IDF est un premier facteur distinctif.
+
+Pour quantifier l'effet sur la taille du classifieur, le nombre de param\`etres d'une couche pleinement connect\'ee est rappel\'e en Eq.~(\ref{eq:param_count_fc}) \cite{b19}.
+
+\begin{equation}
+params  = (infeatures\cdot outfeatures) + outfeatures
+\label{eq:param_count_fc}
+\end{equation}
+
+En appliquant cette formule \`a un r\'eseau $\texttt{INPUT\_DIM} \rightarrow 1024 \rightarrow 512 \rightarrow 256 \rightarrow 3$, un total de 10{,}897{,}923 param\`etres est obtenu pour un MLP avec entr\'ee \`a 10{,}000 dimensions (TF--IDF caract\`eres limit\'e), Eq.~(\ref{eq:param_count_mlp_char}), alors que la m\^eme structure avec entr\'ee \`a 768 dimensions (embedding BERT) conduit \`a 1{,}444{,}355 param\`etres, Eq.~(\ref{eq:param_count_mlp_bert}), soit une r\'eduction d'environ 86.75\%. Cette r\'eduction diminue le risque de sur-apprentissage et stabilise l'entra\^{\i}nement, tout en r\'eduisant le co\^ut de calcul pour la t\^ete.
+
+\begin{equation}
+\begin{gathered}
+P_{1}\,(10000 \rightarrow 1024) = 10000 \cdot 1024 + 1024 = 10{,}241{,}024, \\
+P_{2}\,(1024 \rightarrow 512)  = 1024 \cdot 512 + 512 = 524{,}800, \\
+P_{3}\,(512 \rightarrow 256)   = 512 \cdot 256 + 256 = 131{,}328, \\
+P_{4}\,(256 \rightarrow 3)     = 256 \cdot 3 + 3 = 771, \\
+P_{\text{total}}               = P_{1}+P_{2}+P_{3}+P_{4} = 10{,}897{,}923.
+\end{gathered}
+\label{eq:param_count_mlp_char}
+\end{equation}
+
+\begin{equation}
+\begin{gathered}
+P_{1}\,(768 \rightarrow 1024)  = 768 \cdot 1024 + 1024 = 787{,}456, \\
+P_{2}\,(1024 \rightarrow 512)  = 1024 \cdot 512 + 512 = 524{,}800, \\
+P_{3}\,(512 \rightarrow 256)   = 512 \cdot 256 + 256 = 131{,}328, \\
+P_{4}\,(256 \rightarrow 3)     = 256 \cdot 3 + 3 = 771, \\
+P_{\text{total}}               = P_{1}+P_{2}+P_{3}+P_{4} = 1{,}444{,}355.
+\end{gathered}
+\label{eq:param_count_mlp_bert}
+\end{equation}
+
+Les vectorisations par fr\'equences produisent typiquement une matrice creuse : l'information se concentre sur peu d'indices actifs. Cela rend les MLP sensibles \`a la largeur et \`a la r\'egularisation, et complique la s\'election d'architecture, car des variations modestes peuvent accro\^{\i}tre le sur-apprentissage. \`A l'inverse, les embeddings BERT sont denses et de faible dimension, ce qui permet des t\^etes plus simples et des choix de r\'egularisation moins critiques.
+
+Enfin, la diff\'erence la plus marqu\'ee concerne la sensibilit\'e au contexte : BERT encode le contexte via un pr\'eentra\^{\i}nement sur de grands corpus, tandis que BoW/TF--IDF restent des repr\'esentations essentiellement statistiques. Cette propri\'et\'e permet d'explorer des classifieurs plus simples au-dessus d'embeddings BERT (parfois une t\^ete lin\'eaire), car une part importante de la complexit\'e est d\'ej\`a absorb\'ee par l'encodeur.
+
+Il est cependant important de distinguer l'extraction d'embeddings fig\'es du fine-tuning : adapter l'encodeur \`a la t\^ache (par exemple via LoRA, Q7) permet d'aligner les repr\'esentations internes avec la distribution de donn\'ees et l'objectif de classification. Cela att\'enue l'effet \emph{domain-agnostic} d'un extracteur fig\'e et peut am\'eliorer substantiellement la performance.

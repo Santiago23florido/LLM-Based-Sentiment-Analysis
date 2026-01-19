@@ -1,0 +1,113 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+% Encoding / French typography (safe for pdflatex)
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{subfig}
+\usepackage{xcolor}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\title{Classification de textes --- Analyse de sentiment (MI201 Projet 3)\\}
+
+\author{\IEEEauthorblockN{1\textsuperscript{er} Carlos Adrian Meneses Gamboa}
+\IEEEauthorblockA{\textit{Programme Ing\'enieur en STIC} \\
+\textit{ENSTA Paris}\\
+Paris, France \\
+carlos.meneses@ensta-paris.fr}
+\and
+\IEEEauthorblockN{2\textsuperscript{e} Jose Daniel Chacon Gomez}
+\IEEEauthorblockA{\textit{Programme Ing\'enieur en STIC} \\
+\textit{ENSTA Paris}\\
+Paris, France \\
+jose-daniel.chacon@ensta-paris.fr}
+\and
+\IEEEauthorblockN{3\textsuperscript{e} Santiago Florido Gomez}
+\IEEEauthorblockA{\textit{Programme Ing\'enieur en STIC} \\
+\textit{ENSTA Paris}\\
+Paris, France \\
+santiago.florido@ensta-paris.fr}
+}
+
+\maketitle
+
+\begin{abstract}
+Ce travail pr\'esente un syst\`eme d'analyse de sentiment pour de courts textes en anglais et compare des m\'ethodes classiques d'apprentissage automatique \`a une approche bas\'ee sur un transformeur.
+En utilisant des repr\'esentations standard (sac de mots et TF--IDF), plusieurs classifieurs sont entra\^{\i}n\'es et \'evalu\'es, puis compar\'es \`a un mod\`ele exploitant des embeddings BERT.
+Les r\'esultats sont rapport\'es via l'accuracy et le Macro-F1, en mettant en \'evidence des diff\'erences de performance, de robustesse et de co\^ut computationnel.
+L'\'etude fournit des rep\`eres pratiques pour choisir une cha\^{\i}ne de classification de sentiment adapt\'ee \`a des contraintes de ressources typiques.
+\end{abstract}
+
+\begin{IEEEkeywords}
+analyse de sentiment, TAL, classification de textes, TF--IDF, BERT
+\end{IEEEkeywords}
+
+\input{sections/Introduction}
+\input{sections/Q0}
+\input{sections/Q1}
+\input{sections/Q2}
+\input{sections/Q3}
+\input{sections/Q4}
+\input{sections/Q5}
+\input{sections/Q6}
+\input{sections/Q7}
+\input{sections/Conclusion}
+
+\begin{thebibliography}{00}
+
+\bibitem{b1} T. Finn and A. Downie, ``How can sentiment analysis be used to improve customer experience?,'' \emph{IBM Think}, accessed Jan. 18, 2026. [Online]. Available: https://www.ibm.com/think/insights/how-can-sentiment-analysis-be-used-to-improve-customer-experience
+
+\bibitem{b2} B. Pang and L. Lee, ``Opinion mining and sentiment analysis,'' \emph{Foundations and Trends in Information Retrieval}, vol. 2, no. 1--2, pp. 1--135, 2008.
+
+\bibitem{b3} E. J. Hu, Y. Shen, P. Wallis, Z. Allen-Zhu, Y. Li, S. Wang, L. Wang, and W. Chen, ``LoRA: Low-Rank Adaptation of Large Language Models,'' \emph{arXiv preprint} arXiv:2106.09685, Jun. 2021, doi: 10.48550/arXiv.2106.09685.
+
+\bibitem{b4} The NLTK Project, ``Sample usage for corpus,'' \emph{NLTK Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://www.nltk.org/howto/corpus.html
+
+\bibitem{b5} scikit-learn developers, ``Feature extraction,'' \emph{scikit-learn Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/feature\_extraction.html
+
+\bibitem{b6} scikit-learn developers, ``sklearn.feature\_extraction.text.TfidfVectorizer,'' \emph{scikit-learn Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.feature\_extraction.text.TfidfVectorizer.html
+
+\bibitem{b7} F. Sebastiani, ``Machine Learning in Automated Text Categorization,'' \emph{ACM Computing Surveys}, vol. 34, no. 1, pp. 1--47, Mar. 2002, doi: 10.1145/505282.505283. [Online]. Available: https://nmis.isti.cnr.it/sebastiani/Publications/ACMCS02.pdf
+
+\bibitem{b8} scikit-learn developers, ``sklearn.naive\_bayes.MultinomialNB,'' \emph{scikit-learn Documentation}. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.naive\_bayes.MultinomialNB.html. Accessed: Jan. 18, 2026.
+
+\bibitem{b9} scikit-learn developers, ``sklearn.linear\_model.LogisticRegression,'' \emph{scikit-learn Documentation}. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.linear\_model.LogisticRegression.html. Accessed: Jan. 18, 2026.
+
+\bibitem{b10} scikit-learn developers, ``sklearn.svm.LinearSVC,'' \emph{scikit-learn Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html
+
+\bibitem{b11} scikit-learn developers, ``sklearn.calibration.CalibratedClassifierCV,'' \emph{scikit-learn Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.calibration.CalibratedClassifierCV.html
+
+\bibitem{b12} scikit-learn developers, ``sklearn.ensemble.RandomForestClassifier,'' \emph{scikit-learn Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
+
+\bibitem{b13} SciPy developers, ``scipy.sparse.csr\_matrix,'' \emph{SciPy Documentation}. [Online]. Available: https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr\_matrix.html. Accessed: Jan. 18, 2026.
+
+\bibitem{b14} PyTorch contributors, ``Data Loading and Processing Tutorial,'' \emph{PyTorch Tutorials}. [Online]. Available: https://docs.pytorch.org/tutorials/beginner/data\_loading\_tutorial.html. Accessed: Jan. 18, 2026.
+
+\bibitem{b15} Hugging Face, ``BERT,'' \emph{Transformers Documentation}. [Online]. Available: https://huggingface.co/docs/transformers/en/model\_doc/bert. Accessed: Jan. 18, 2026.
+
+\bibitem{b16} scikit-learn developers, ``sklearn.preprocessing.StandardScaler,'' \emph{scikit-learn Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html
+
+\bibitem{b17} Sutriawan, Supriadi Rustad, Guruh Fajar Shidik, and Pujiono, ``Performance Evaluation of Text Embedding Models for Ambiguity Classification in Indonesian News Corpus: A Comparative Study of TF-IDF, Word2Vec, FastText, BERT, and GPT,'' \emph{Ing\'enierie des Syst\`emes d'Information}, vol. 30, no. 6, pp. 1469--1482, June 2025, doi: 10.18280/isi.300606. [Online]. Available: https://www.iieta.org/journals/isi/paper/10.18280/isi.300606
+
+\bibitem{b18} J. Devlin, M.-W. Chang, K. Lee, and K. Toutanova, ``BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding,'' \emph{Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)}, pp. 4171--4186, Minneapolis, Minnesota, Jun. 2019, doi: 10.18653/v1/N19-1423. [Online]. Available: https://aclanthology.org/N19-1423/
+
+\bibitem{b19} PyTorch contributors, ``torch.nn.Linear,'' \emph{PyTorch Documentation}, accessed Jan. 18, 2026. [Online]. Available: https://docs.pytorch.org/docs/stable/generated/torch.nn.Linear.html
+
+\bibitem{b_bert} J. Devlin, M.-W. Chang, K. Lee, and K. Toutanova, ``BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding,'' in \emph{Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies}, vol. 1, Minneapolis, Minnesota, Jun. 2019, pp. 4171--4186.
+
+\bibitem{b_att} A. Vaswani et al., ``Attention is all you need,'' in \emph{Advances in Neural Information Processing Systems}, vol. 30, Long Beach, CA, Dec. 2017.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,130 @@
+\section{Q0---Analyse du jeu de donn\'ees avec des mod\`eles classiques d'apprentissage automatique}
+
+Le jeu de donn\'ees \emph{Sentiment Data Analysis} est compos\'e de courts tweets en anglais, class\'es en trois cat\'egories selon leur polarit\'e : positif, neutre ou n\'egatif (colonne \texttt{sentiment}). Des m\'etadonn\'ees sont \'egalement disponibles : le moment de la journ\'ee de publication, l'\^age de l'utilisateur, et son pays d'origine (colonnes \texttt{Age of User} et \texttt{country}).
+
+Un pr\'etraitement du champ texte est d'abord effectu\'e : suppression des valeurs nulles, puis suppression des \emph{stopwords} avec NLTK, afin d'obtenir une colonne de texte trait\'e d\'ebarrass\'ee de mots tr\`es fr\'equents en anglais \`a faible contribution s\'emantique \cite{b4}.
+
+\subsection{Analyse exploratoire (EDA)}
+
+La distribution des classes dans l'ensemble d'entra\^{\i}nement est analys\'ee. Comme indiqu\'e en Fig.~\ref{fig:q0-eda}, la classe neutre est la plus repr\'esent\'ee, mais l'ensemble ne pr\'esente pas de d\'es\'equilibre substantiel susceptible d'induire un biais majeur des classifieurs.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\linewidth]{images/Q0/Distribution_of_sentiments.png}
+  \caption{Distribution des sentiments dans l'ensemble d'entra\^{\i}nement.}
+  \label{fig:q0-eda}
+\end{figure}
+
+Avant d'appliquer des strat\'egies d'apprentissage automatique, il est utile d'examiner le comportement des termes (sac de mots) vis-\`a-vis des classes de polarit\'e, notamment via une analyse de fr\'equence.
+
+Cela met en \'evidence le r\^ole d'un \emph{vectorizer}, responsable de la conversion d'une collection de textes (telle que la colonne de texte trait\'e) en vecteurs num\'eriques. Le r\'esultat est une repr\'esentation creuse (sparse) par document, appel\'ee \emph{vectorisation}. Selon la construction de cette matrice, plusieurs approches sont possibles. Ici, trois familles sont consid\'er\'ees : BoW (Bag of Words), TF--IDF, et TF--IDF caract\`eres \cite{b5}.
+
+\begin{itemize}
+\item \textbf{BoW.} Repr\'esente un document par l'occurrence des mots en n-grammes, en ignorant leur position. Un vocabulaire est construit, puis chaque document est encod\'e par des comptes. Dans scikit-learn, \texttt{CountVectorizer} ``convertit une collection de documents texte en une matrice de comptes de tokens'' \cite{b5}.
+
+\item \textbf{TF--IDF.} Produit une matrice creuse comme BoW, mais pond\`ere les termes par une fr\'equence inverse de document (IDF) afin de p\'enaliser les termes tr\`es fr\'equents \cite{b5}. Le poids TF--IDF d'un terme $t$ dans un document $d$ est donn\'e par l'Eq.~(\ref{eq:tfidf}), avec $\mathrm{tf}(t,d)$ la fr\'equence du terme dans $d$ et $\mathrm{idf}(t)$ une pond\'eration li\'ee \`a sa diffusion dans le corpus.
+
+\begin{equation}
+\mathrm{tfidf}(t,d) = \mathrm{tf}(t,d)\times \mathrm{idf}(t).
+\label{eq:tfidf}
+\end{equation}
+
+En pratique, une version liss\'ee de l'IDF est souvent utilis\'ee, Eq.~(\ref{eq:idf}), o\`u $n$ est le nombre total de documents et $\mathrm{df}(t)$ le nombre de documents contenant $t$.
+
+\begin{equation}
+\mathrm{idf}(t)=\log\left(\frac{1+n}{1+\mathrm{df}(t)}\right)+1.
+\label{eq:idf}
+\end{equation}
+
+Enfin, une normalisation par document stabilise l'\'echelle des caract\'eristiques. Une normalisation $\ell_2$ est consid\'er\'ee, Eq.~(\ref{eq:l2norm}), o\`u $\mathbf{v}$ est le vecteur TF--IDF d'un document.
+
+\begin{equation}
+\mathbf{v}_{\mathrm{norm}}=\frac{\mathbf{v}}{\lVert \mathbf{v} \rVert_2}
+=\frac{\mathbf{v}}{\sqrt{v_1^2+v_2^2+\cdots+v_n^2}}.
+\label{eq:l2norm}
+\end{equation}
+
+\item \textbf{TF--IDF caract\`eres.} Applique TF--IDF \`a des n-grammes de caract\`eres plut\^ot que de mots, contr\^ol\'e dans scikit-learn via le param\`etre \texttt{analyzer} \cite{b6}.
+\end{itemize}
+
+Apr\`es d\'efinition des repr\'esentations, BoW est utilis\'e pour extraire les 20 uni-grammes et bi-grammes les plus fr\'equents. Pour TF--IDF, l'objectif est d'afficher les 20 uni-grammes et bi-grammes de poids maximal. Les n-grammes de caract\`eres ne sont pas utilis\'es \`a cette \'etape car ils sont moins interpr\'etables pour l'analyse vis\'ee.
+
+\begin{figure}[!ht]
+  \centering
+  \subfloat[Monogrammes]{
+    \includegraphics[width=0.9\linewidth]{images/Q0/top20monogramsBoW.png}
+    \label{fig:q0-bow-uni}}
+  \hfill
+  \subfloat[Bigrams]{
+    \includegraphics[width=0.9\linewidth]{images/Q0/top20bigramsBoW.png}
+    \label{fig:q0-bow-bi}}
+  \caption{Top 20 n-grammes avec BoW.}
+  \label{fig:q0-bow}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \subfloat[Monogrammes]{
+    \includegraphics[width=0.9\linewidth]{images/Q0/top20monogramstidf.png}
+    \label{fig:q0-tfidf-uni}}
+  \hfill
+  \subfloat[Bigrams]{
+    \includegraphics[width=0.9\linewidth]{images/Q0/top20bigramstidf.png}
+    \label{fig:q0-tfidf-bi}}
+  \caption{Top 20 n-grammes avec TF--IDF.}
+  \label{fig:q0-tfidf}
+\end{figure}
+
+L'analyse des r\'esultats des Figs.~\ref{fig:q0-bow}--\ref{fig:q0-tfidf} montre que certains n-grammes sont coh\'erents avec la polarit\'e associ\'ee (par exemple \emph{bad} ou \emph{sorry} pour la classe n\'egative). N\'eanmoins, ces approches \'etant purement statistiques, des termes fr\'equents \`a faible valeur discriminante (ex. \emph{it}) peuvent aussi appara\^{\i}tre. De plus, certains bigrammes a priori neutres (ex. \emph{feels like}) deviennent repr\'esentatifs en raison du contexte de collecte. Cela anticipe une limite des vectorisations par fr\'equence par rapport \`a des embeddings contextualis\'es.
+
+Il est \'egalement utile de v\'erifier si des variables secondaires (\'age, type de tweet, moment de la journ\'ee) ont un lien avec la polarit\'e. Les distributions (Fig.~\ref{fig:q0-sbuubtt}) restent proches d'une cat\'egorie \`a l'autre ; ces variables ne sont donc pas retenues pour l'entra\^{\i}nement.
+
+\begin{figure}[!ht]
+  \centering
+  \subfloat[Sentiments par utilisateur]{
+    \includegraphics[width=0.9\linewidth]{images/Q0/sentimentsbyuser.png}
+    \label{fig:q0-sbu}}
+  \hfill
+  \subfloat[Sentiments par type de tweet]{
+    \includegraphics[width=0.9\linewidth]{images/Q0/sentimentbytypeoftweet.png}
+    \label{fig:q0-sbtt}}
+  \caption{Distribution comparative des sentiments, stratifi\'ee par utilisateur et type de tweet.}
+  \label{fig:q0-sbuubtt}
+\end{figure}
+
+Concernant le pays, la Fig.~\ref{fig:q0-dcountry} pr\'esente les pays les plus fr\'equents. Les diff\'erences de distribution restent modestes et de nombreux pays sont faiblement repr\'esent\'es, ce qui peut introduire des caract\'eristiques rares et un risque de sur-apprentissage. Cette colonne n'est donc pas retenue.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\linewidth]{images/Q0/sentimentbycountry.png}
+  \caption{Distribution des sentiments pour les 10 pays les plus repr\'esent\'es.}
+  \label{fig:q0-dcountry}
+\end{figure}
+
+Enfin, la longueur du texte pr\'etrait\'e est examin\'ee (Fig.~\ref{fig:q0-wordcount}). Les distributions par classe sont comparables ; cette variable n'est pas retenue.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\linewidth]{images/Q0/wordcountsentiment.png}
+  \caption{Distribution du nombre de mots par sentiment.}
+  \label{fig:q0-wordcount}
+\end{figure}
+
+\subsection{Entra\^{\i}nement de mod\`eles classiques}
+
+Apr\`es l'analyse pr\'ec\'edente, des mod\`eles supervis\'es classiques (hors deep learning) sont entra\^{\i}n\'es pour classer chaque message en trois polarit\'es. Ces mod\`eles s'appuient sur une repr\'esentation explicite obtenue via un vectorizer : repr\'esentation du document, apprentissage du classifieur, \'evaluation \cite{b7}.
+
+Pour chaque sch\'ema de repr\'esentation, quatre classifieurs sont consid\'er\'es : Multinomial Naive Bayes, r\'egression logistique, SVM lin\'eaire, et Random Forest. Une recherche d'hyperparam\`etres est effectu\'ee sur un pipeline \emph{vectorizer + mod\`ele}, \'evalu\'ee via validation crois\'ee stratifi\'ee. La meilleure configuration (selon une m\'etrique cible) est ensuite r\'eentra\^{\i}n\'ee sur l'ensemble complet d'entra\^{\i}nement.
+
+Les hyperparam\`etres principaux des vectorizers sont :
+\texttt{ngram\_range} (tailles de n-grammes), \texttt{min\_df} (seuil minimal de fr\'equence documentaire), \texttt{max\_df} (seuil maximal), et \texttt{max\_features} (limite de vocabulaire). Cette limite est particuli\`erement importante pour la TF--IDF caract\`eres afin de contr\^oler la dimension et le co\^ut.
+
+Les hyperparam\`etres des mod\`eles sont sp\'ecifiques et r\'esum\'es ci-dessous :
+\begin{itemize}
+\item \textbf{Multinomial Naive Bayes} : \texttt{alpha} (lissage additif) pour \'eviter des probabilit\'es nulles \cite{b8}.
+\item \textbf{R\'egression logistique} : \texttt{C} (inverse de la r\'egularisation), \texttt{penalty}, \texttt{solver}, \texttt{max\_iter} \cite{b9}.
+\item \textbf{SVM lin\'eaire} : \texttt{C}, \texttt{estimator\_\_loss}, \texttt{max\_iter}. Le classifieur est calibr\'e via \texttt{CalibratedClassifierCV} afin d'obtenir des probabilit\'es de classe \cite{b11}.
+\item \textbf{Random Forest} : \texttt{n\_estimators}, \texttt{max\_depth}, \texttt{min\_samples\_split}, \texttt{class\_weight} \cite{b12}.
+\end{itemize}
+
+Une grille est construite, la performance est estim\'ee via validation crois\'ee \`a 5 plis, puis la meilleure configuration est r\'eentra\^{\i}n\'ee sur l'ensemble complet. Les r\'esultats et leur discussion sont pr\'esent\'es en Q1.

@@ -1,0 +1,48 @@
+\section{Q2---Architectures MLP pour la classification de sentiment de textes courts}
+
+Cette section \'etudie des architectures de perceptron multicouche (MLP) afin d'identifier efficacement la polarit\'e de courts textes en anglais. Le pipeline consid\'er\'e comprend : (i) une repr\'esentation (vectorisation) du texte ; (ii) la construction d'un \texttt{Dataset}/\texttt{DataLoader} ; (iii) l'entra\^{\i}nement d'un MLP ; puis (iv) l'\'evaluation.
+
+Le premier \'el\'ement du pipeline est le vectorizer (BoW, TF--IDF mot, ou TF--IDF caract\`ere). Les hyperparam\`etres retenus pour chaque vectorizer correspondent \`a la meilleure configuration observ\'ee dans la grille associ\'ee \`a ce vectorizer au stade Q1.
+
+Pour BoW et TF--IDF mot, le nombre de caract\'eristiques est de 6689. Pour TF--IDF caract\`eres, le nombre de caract\'eristiques d\'epasse 100{,}000 si aucune limite n'est impos\'ee. Afin de garder une dimension comparable et de rendre l'entra\^{\i}nement tractable, la configuration TF--IDF caract\`eres est conserv\'ee, mais \texttt{max\_features} est fix\'e \`a 10{,}000. Cela permet de comparer des architectures MLP \'equivalentes (m\^emes profondeurs et t\^etes), en ne modifiant que la dimension d'entr\'ee.
+
+La matrice creuse produite par le vectorizer est convertie en format CSR, puis utilis\'ee via un \texttt{SparseBoWDataset} \cite{b13}. Un \texttt{DataLoader} PyTorch it\`ere ensuite sur l'ensemble d'entra\^{\i}nement ; les \'echantillons sont m\'elang\'es \`a chaque \'epoque. La fonction \texttt{collate} densifie les lots et retourne un dictionnaire \{\texttt{"x"}: \texttt{X\_batch}, \texttt{"label"}: \texttt{y\_batch}\} directement utilisable pour le passage avant et le calcul de la perte \cite{b14}.
+
+\subsection{Architectures MLP propos\'ees (repr\'esentations creuses)}
+Afin de respecter les contraintes d'entr\'ee et l'objectif de classification \`a trois classes, quatre r\'eseaux de profondeur mod\'er\'ee (3--4 couches cach\'ees) sont propos\'es. La profondeur est limit\'ee car les repr\'esentations BoW/TF--IDF condensent d\'ej\`a une partie de l'information discriminante au niveau des caract\'eristiques ; augmenter excessivement la profondeur tend \`a accro\^{\i}tre la variance et le risque de sur-apprentissage, sans gain proportionnel en g\'en\'eralisation.
+
+Les diff\'erences entre architectures portent principalement sur : (i) des structures en entonnoir (funnel) ; et (ii) le degr\'e de r\'egularisation via dropout.
+
+La taille d'entr\'ee d\'epend du vectorizer : 6689 pour BoW/TF--IDF mot, et 10{,}000 pour TF--IDF caract\`eres. La taille de batch est fix\'ee \`a 128.
+
+% Les descriptions des couches sont laissées identiques à l’original (très techniques),
+% afin d’éviter toute perte d’information ou ambiguïté.
+\begin{itemize}
+\item \textbf{MLP\_1024\_512\_256\_drop0\_3}
+\item \textbf{MLP\_2048\_1024\_512\_drop0\_2\_gelu}
+\item \textbf{MLP\_1536\_768\_384\_192\_drop0\_25\_SiLU}
+\item \textbf{MLP\_4096\_2048\_1024\_drop0\_1\_ReLU}
+\end{itemize}
+
+L'entra\^{\i}nement utilise une perte entropie crois\'ee. Chaque r\'eseau est entra\^{\i}n\'e jusqu'\`a 50 \'epoques, avec un crit\`ere d'arr\^et rapide \`a $1\times 10^{-4}$ bas\'e sur la variation de perte entre deux \'epoques cons\'ecutives. L'optimisation est effectu\'ee avec Adam, avec un \texttt{lr} identique entre architectures afin de conserver des conditions comparables.
+
+\subsection{Motivation pour des embeddings contextualis\'es}
+Les vectorisations bas\'ees sur des fr\'equences fournissent une repr\'esentation sans information s\'emantique explicite : elles ne capturent que partiellement l'ordre et le contexte. Cela motive l'introduction d'une repr\'esentation dense incorporant le contexte via une tokenisation et un encodage par un mod\`ele de type BERT.
+
+\subsection{Pipeline avec embeddings BERT}
+Changer de repr\'esentation implique d'adapter le \texttt{DataLoader} : au lieu de fournir des caract\'eristiques finales, il fournit des tenseurs tokenis\'es, car les embeddings sont produits \`a travers le passage avant de BERT. Dans ce cas, la fonction \texttt{collate} n'est pas requise, car le tokenizer produit des tenseurs de taille compatible. Le \texttt{DataLoader} retourne \texttt{"input\_ids"}, \texttt{"attention\_mask"} et \texttt{"label"} \cite{b15}.
+
+Une fonction d'extraction d'embeddings ex\'ecute BERT en mode \'evaluation, puis applique un pooling pour obtenir un vecteur par texte. Les lots sont concat\'en\'es pour former une matrice dense. Cette matrice est standardis\'ee via \texttt{StandardScaler} (moyenne nulle, variance unit\'e sur train), afin de stabiliser l'entra\^{\i}nement et d'\'eviter qu'une dimension domine par sa variance \cite{b16}.
+
+\subsection{Architectures MLP au-dessus de BERT}
+Avec BERT, la dimension d'entr\'ee devient fixe et faible (768 pour BERT\textsubscript{BASE}). Les embeddings sont denses, contrairement aux vecteurs TF--IDF creux. La complexit\'e repr\'esentative est essentiellement port\'ee par l'encodeur (BERT), et la t\^ete de classification peut rester simple ; dans certains cas, une t\^ete lin\'eaire suffit \cite{b17}.
+
+Les architectures consid\'er\'ees sont :
+\begin{enumerate}
+\item \textbf{LinearHead\_baseline (single linear layer)}
+\item \textbf{MLP\_256\_64\_drop0\_2}
+\item \textbf{MLP\_128\_32\_drop0\_2}
+\item \textbf{MLP\_512\_128\_drop0\_3}
+\end{enumerate}
+
+La perte et la proc\'edure d'entra\^{\i}nement restent identiques (entropie crois\'ee, Adam, 50 \'epoques max, arr\^et rapide), afin de conserver une comparaison coh\'erente. Les r\'esultats de l'ensemble des pipelines de cette section sont analys\'es en Q3.
