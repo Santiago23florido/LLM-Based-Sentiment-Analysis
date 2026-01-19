@@ -1,0 +1,139 @@
+\section{Q3-Comparative Analysis of MLP Performance and Implications for Baseline Selection}
+\label{sec:q3}
+
+This section provides an interpretive analysis of the multilayer perceptron (MLP) results introduced in Q2. Although Q1 focuses on classical linear baselines, it is useful to first examine whether introducing non-linearity through MLPs yields a meaningful improvement over classical pipelines, and which representation families benefit the most. The discussion is based on test-set Macro-F1, Macro-Recall, and Accuracy, complemented by an inspection of training-set metrics to characterize potential train--test gaps.
+
+\subsection{Preliminary MLP performance analysis (Q2)}
+\label{subsec:q3-mlp-prelim}
+
+We first consider the test-set results for Macro-F1, Macro-Recall, and Accuracy, shown in Fig.~\ref{fig:q3-mlp-test-f1}, Fig.~\ref{fig:q3-mlp-test-recall}, and Fig.~\ref{fig:q3-mlp-test-acc}, respectively.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\linewidth]{images/Q3/mlp_test_f1_macro_barh_hue.png}
+  \caption{MLP test performance comparison --- Macro-F1 (hue = representation family).}
+  \label{fig:q3-mlp-test-f1}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\linewidth]{images/Q3/mlp_test_recall_macro_barh_hue.png}
+  \caption{MLP test performance comparison --- Macro-Recall (hue = representation family).}
+  \label{fig:q3-mlp-test-recall}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\linewidth]{images/Q3/mlp_test_accuracy_barh_hue.png}
+  \caption{MLP test performance comparison --- Accuracy (hue = representation family).}
+  \label{fig:q3-mlp-test-acc}
+\end{figure}
+
+Across these three plots, a consistent pattern emerges: configurations based on \textbf{Char TF--IDF} dominate overall MLP performance. In particular, the MLP using Char TF--IDF (4096--2048--1024, dropout 0.10, ReLU) achieves the highest values across the three metrics (Macro-F1 = 0.711, Macro-Recall = 0.706, Accuracy = 0.708). The variant Char TF--IDF (1024--512--256, dropout 0.30, ReLU) remains very close (0.702 / 0.701 / 0.699). This behavior suggests that, for tweets, character-level signals (abbreviations, orthographic variants, frequent suffix/prefix patterns, and informal writing) remain highly informative even when the classifier is non-linear.
+
+In contrast, the \textbf{BoW} and \textbf{Word TF--IDF} families occupy a second tier, with best cases around 0.67--0.68. Finally, \textbf{BERT-based} variants (MLP heads on top of embeddings) are competitive but remain more limited in this setting (approximately 0.65--0.67), which is consistent with using contextual embeddings without full end-to-end fine-tuning of the encoder.
+
+\subsection{Comparison across MLP representation families (predictive quality)}
+\label{subsec:q3-mlp-families}
+
+Considering the three test metrics reported in Fig.~\ref{fig:q3-mlp-test-f1}--\ref{fig:q3-mlp-test-acc}, the family-level comparison is stable: \textbf{Char TF--IDF} is the representation that produces the most effective MLPs and does so consistently.
+
+\subsubsection{Char TF--IDF (best family in predictive quality)}
+\label{subsubsec:q3-char-tfidf}
+
+Overall, MLPs using \textbf{Char TF--IDF} achieve the best performance. The top model is Char TF--IDF 4096--2048--1024 (dropout 0.10, ReLU), with approximately Macro-F1 $\approx 0.711$, Macro-Recall $\approx 0.706$, and Accuracy $\approx 0.708$. In addition, this family exhibits the strongest average performance (approximately Macro-F1 $\approx 0.688$).
+
+This behavior is consistent with the tweet domain: character-level modeling is typically more robust to spelling errors, abbreviations, elongated words (e.g., ``soooo''), hashtags, and writing variations. Even if a word is incomplete or non-standard, the model can still capture informative sub-lexical patterns and preserve a stable sentiment signal.
+
+\subsubsection{BoW and Word TF--IDF (intermediate performance, with BoW slightly higher)}
+\label{subsubsec:q3-bow-word}
+
+MLPs based on \textbf{BoW} and \textbf{Word TF--IDF} underperform Char TF--IDF. In this comparison, the best BoW configuration reaches approximately Macro-F1 $\approx 0.678$, while the best Word TF--IDF configuration reaches approximately Macro-F1 $\approx 0.670$.
+
+A simple interpretation is that, in very short texts, detecting the presence/absence of salient terms (BoW) can be as effective as applying finer rarity-based weighting at the word level (Word TF--IDF). Moreover, word-level representations are less robust to abbreviations, spelling noise, and informal writing, which Char TF--IDF handles more naturally due to its granularity.
+
+\subsubsection{BERT (competitive, but not superior to Char TF--IDF under this regime)}
+\label{subsubsec:q3-bert}
+
+Within the \textbf{BERT-based} models, the best result is achieved by the simplest option: BERT + linear head (768$\rightarrow$3), with approximately Macro-F1 $\approx 0.666$. When additional MLP layers and dropout are added on top of the embeddings, test performance does not improve and typically decreases slightly. A consistent interpretation is that the BERT embedding space already provides reasonable class separability with a linear classifier, and that increasing head capacity adds parameters that do not translate into improved generalization under the current experimental regime.
+
+To further characterize generalization behavior, it is useful to contrast these test results with training-set metrics for the same architectures, shown in Fig.~\ref{fig:q3-mlp-train-acc}, Fig.~\ref{fig:q3-mlp-train-f1}, and Fig.~\ref{fig:q3-mlp-train-recall}.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\linewidth]{images/Q3/mlp_train_accuracy_barh_hue.png}
+  \caption{MLP training performance comparison --- Accuracy (hue = representation family).}
+  \label{fig:q3-mlp-train-acc}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\linewidth]{images/Q3/mlp_train_f1_macro_barh_hue.png}
+  \caption{MLP training performance comparison --- Macro-F1 (hue = representation family).}
+  \label{fig:q3-mlp-train-f1}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\linewidth]{images/Q3/mlp_train_recall_macro_barh_hue.png}
+  \caption{MLP training performance comparison --- Macro-Recall (hue = representation family).}
+  \label{fig:q3-mlp-train-recall}
+\end{figure}
+
+These training plots highlight an important phenomenon: MLPs on \textbf{BoW / Word TF--IDF / Char TF--IDF} often reach extremely high training scores (in several cases approaching \textbf{1.0}), even for relatively small architectures. This indicates that with sparse, high-dimensional representations, an MLP can fit the training set very effectively (i.e., it can memorize frequent n-gram combinations). However, this ease of fitting does not guarantee a proportional improvement on the test set. In other words, the strong test performance of Char TF--IDF + MLP coexists with a clear train--test gap, which motivates interpreting the result as a trade-off: high fitting capacity but a structural risk of overfitting.
+
+This also helps explain why, within the Char TF--IDF family, increasing depth does not systematically yield proportional gains in test performance. Once training metrics approach a ceiling, improvements depend primarily on generalization rather than on additional capacity.
+
+Finally, if the objective is to identify the single best MLP in Q2 under test-set predictive performance, the reference is the MLP with \textbf{Char TF--IDF (4096--2048--1024, dropout 0.10, ReLU)}, which outperforms the best BERT-based variant (BERT + linear head). However, incorporating the train--test perspective suggests a practical limitation: MLPs with TF--IDF inputs (including Char TF--IDF) show very strong training fit, which makes it advisable to treat them as models that require explicit generalization control (e.g., regularization, early stopping, and/or effective-capacity constraints) if out-of-sample robustness is a primary objective. By contrast, the \textbf{BERT + linear head} configuration behaves as a more conservative alternative: its test performance is lower, but its simplicity reduces incentives to increase head complexity, which is precisely where performance degradation is observed in the current setting.
+
+\subsection{Comparative consideration}
+\label{subsubsec:q3-comparative-consideration}
+
+Table~\ref{tab:q3-classical-vs-mlp} provides a consolidated comparison between the \emph{classical} pipelines evaluated in Q0--Q1 and the \emph{MLP} models evaluated in Q2, using the same test-set metrics (Accuracy, Macro-Recall, and Macro-F1) and ranking models by Macro-F1. A first observation is that several classical approaches remain highly competitive and, in this experimental setting, even outperform the non-linear MLP counterparts. In particular, the top-performing group is dominated by classical pipelines based on TF--IDF (especially at the character level) combined with strong classifiers such as Random Forest, Linear SVM, and Logistic Regression, which occupy the upper ranks of the table.
+
+At the same time, the best MLP configuration (Char TF--IDF with a moderately deep architecture) reaches a Macro-F1 close to the top classical baselines, indicating that non-linear models can leverage robust character-level representations to approach the performance of the strongest classical methods. However, the table also suggests that increasing model capacity alone does not guarantee a systematic gain over well-regularized classical pipelines in high-dimensional sparse regimes, where linear models are particularly effective.
+
+Importantly, this comparison should be interpreted as an intermediate snapshot rather than a final conclusion regarding neural approaches. The transformer-based branch has not yet been fully exploited: the current BERT experiments rely on fixed embeddings with shallow heads, and the fine-tuning stage with LoRA (planned as a next step) is expected to better adapt the representation to the target dataset. Therefore, it is reasonable to anticipate that a fine-tuned transformer (or an MLP/transformer variant with adapted representations) may narrow the remaining gap and compete more directly with the strongest classical baselines (notably the top group reported in Table~\ref{tab:q3-classical-vs-mlp}). In this sense, the classical results establish a rigorous and demanding reference point, while the forthcoming fine-tuning results will determine whether learned representations can consistently surpass this baseline under the same evaluation protocol.
+
+\begin{table*}[!t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.12}
+\caption{Test-set comparison between the 12 classical pipelines (Q0--Q1) and the 16 MLP models (Q2). Models are ranked by Macro-F1 (descending). Best overall, best classical, and best MLP are highlighted in bold.}
+\label{tab:q3-classical-vs-mlp}
+\begin{tabular}{r l p{2.2cm} p{8.1cm} c c c}
+\hline
+\textbf{Rank} & \textbf{Approach} & \textbf{Representation} & \textbf{Model} & \textbf{Acc.} & \textbf{Macro-R} & \textbf{Macro-F1}\\
+\hline
+\textbf{1} & Classical & TF-IDF (char) & \textbf{Random Forest} & \textbf{0.720} & \textbf{0.719} & \textbf{0.722}\\
+2 & Classical & TF-IDF (char) & Linear SVM & 0.713 & 0.710 & 0.715\\
+3 & Classical & TF-IDF (word) & Random Forest & 0.711 & 0.712 & 0.713\\
+4 & Classical & TF-IDF (char) & Logistic Regression & 0.711 & 0.705 & 0.712\\
+\textbf{5} & MLP & Char TF-IDF & \textbf{4096-2048-1024 (drop 0.10, ReLU)} & \textbf{0.708} & \textbf{0.706} & \textbf{0.711}\\
+6 & Classical & BoW & Random Forest & 0.708 & 0.709 & 0.710\\
+7 & Classical & TF-IDF (word) & Logistic Regression & 0.705 & 0.701 & 0.707\\
+8 & Classical & BoW & Linear SVM & 0.703 & 0.698 & 0.705\\
+9 & Classical & TF-IDF (word) & Linear SVM & 0.703 & 0.698 & 0.705\\
+10 & Classical & BoW & Logistic Regression & 0.703 & 0.696 & 0.704\\
+11 & MLP & Char TF-IDF & 1024-512-256 (drop 0.30, ReLU) & 0.699 & 0.701 & 0.702\\
+12 & MLP & BoW & 4096-2048-1024 (drop 0.10, ReLU) & 0.675 & 0.670 & 0.678\\
+13 & MLP & BoW & 1024-512-256 (drop 0.30, ReLU) & 0.670 & 0.666 & 0.673\\
+14 & MLP & Char TF-IDF & 2048-1024-512 (drop 0.20, GELU) & 0.669 & 0.671 & 0.672\\
+15 & Classical & TF-IDF (char) & MultinomialNB & 0.670 & 0.661 & 0.670\\
+16 & MLP & Word TF-IDF & 1024-512-256 (drop 0.30, ReLU) & 0.666 & 0.666 & 0.670\\
+17 & MLP & Word TF-IDF & 4096-2048-1024 (drop 0.10, ReLU) & 0.668 & 0.660 & 0.667\\
+18 & MLP & BERT & Linear Head (768$\rightarrow$3) & 0.664 & 0.662 & 0.666\\
+19 & MLP & Char TF-IDF & 1536-768-384-192 (drop 0.25, SiLU) & 0.662 & 0.664 & 0.665\\
+20 & Classical & BoW & MultinomialNB & 0.660 & 0.658 & 0.664\\
+21 & MLP & BERT & 128-32 (drop 0.20, ReLU) & 0.658 & 0.658 & 0.660\\
+22 & MLP & BERT & 256-64 (drop 0.20, ReLU) & 0.656 & 0.656 & 0.658\\
+23 & Classical & TF-IDF (word) & MultinomialNB & 0.653 & 0.652 & 0.656\\
+24 & MLP & BERT & 512-128 (drop 0.30, ReLU) & 0.648 & 0.649 & 0.650\\
+25 & MLP & BoW & 2048-1024-512 (drop 0.20, GELU) & 0.635 & 0.636 & 0.637\\
+26 & MLP & BoW & 1536-768-384-192 (drop 0.25, SiLU) & 0.635 & 0.636 & 0.637\\
+27 & MLP & Word TF-IDF & 2048-1024-512 (drop 0.20, GELU) & 0.624 & 0.625 & 0.627\\
+28 & MLP & Word TF-IDF & 1536-768-384-192 (drop 0.25, SiLU) & 0.614 & 0.623 & 0.617\\
+\hline
+\end{tabular}
+\end{table*}
