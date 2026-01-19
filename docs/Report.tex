@@ -353,7 +353,7 @@ For training, cross-entropy loss is defined as the optimization criterion. In ad
 This analysis focuses on comparing the performance of the optimized BERT-based architecture against a modern Large Language Model (LLM). The fundamental objective is to evaluate whether a general-purpose generative model, operating solely in inference mode, is capable of competing with or surpassing the effectiveness of a specialized encoder that has undergone fine-tuning.
 \subsection{Methodology: Generative Inference}
 
-For this comparison, we selected \texttt{gemma-3-4b-it}, an instruction-tuned model from Google's Gemma family with approximately 4 billion parameters. Unlike the BERT implementation, where the model weights were updated via backpropagation to minimize cross-entropy loss (fine-tuning), the LLM was employed using a \textbf{Few-Shot Prompting} strategy via the Google GenAI API.
+For this comparison, gemma-3-4b-it was selected, an instruction-tuned model from Google’s Gemma family with approximately 4 billion parameters. Unlike the BERT baseline considered at this stage---which uses fixed BERT embeddings with a simple linear classifier (\texttt{LinearHead(768$\rightarrow$3)})---the LLM is evaluated through Few-Shot Prompting via the Google GenAI API, without any parameter updates.
 
 The experimental setup was defined as follows:
 \begin{itemize}
@@ -412,9 +412,9 @@ Gemma-3-4b-it & 4B & Few-Shot & 0.630 \\
 \end{table}
 
 \begin{enumerate}
-    \item \textbf{Performance Gap:} The fine-tuned BERT model outperforms the LLM by approximately \textbf{3.6\% in Macro F1}. This confirms that, for this dataset, a smaller model adapted to the specific domain (via fine-tuning) is more effective than a massive model relying on general knowledge (few-shot).
+    \item \textbf{Performance Gap:} The fine-tuned BERT model outperforms the LLM by approximately \textbf{3.6\% in Macro F1}. This confirms that, for this dataset, a smaller model adapted to the specific domain is more effective than a massive model relying on general knowledge (few-shot).
     
-    \item \textbf{Resource Efficiency:} The efficiency gap is substantial. The BERT model (110M parameters) can be deployed for inference with low latency on standard hardware. In contrast, the LLM (4B parameters) requires significant VRAM or API dependence, with observed latencies in the range of seconds per query.
+    \item \textbf{Resource Efficiency:} The efficiency gap is substantial. The BERT model (110M parameters) can be deployed for inference with low latency on standard hardware. In contrast, the LLM (4B parameters) requires significant VRAM or API dependence.
     
 \end{enumerate}
 

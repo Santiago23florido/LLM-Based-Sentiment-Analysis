@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.11.11)  20 JAN 2026 00:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.11.11)  20 JAN 2026 00:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -538,6 +538,10 @@ File: images/Q3/mlp_train_recall_macro_barh_hue.png Graphic file (type png)
 Package pdftex.def Info: images/Q3/mlp_train_recall_macro_barh_hue.png  used on input line 78.
 (pdftex.def)             Requested size: 252.0pt x 124.55281pt.
  [14 <./images/Q3/mlp_train_accuracy_barh_hue.png> <./images/Q3/mlp_train_f1_macro_barh_hue.png> <./images/Q3/mlp_train_recall_macro_barh_hue.png>])
+Underfull \hbox (badness 1910) in paragraph at lines 356--357
+[]\OT1/ptm/m/n/10 For this com-par-i-son, gemma-3-4b-it was se-lected, an
+ []
+
 <images/Q4/gemma_report.png, id=124, 715.2321pt x 1102.1175pt>
 File: images/Q4/gemma_report.png Graphic file (type png)
 <use images/Q4/gemma_report.png>
@@ -548,7 +552,7 @@ File: images/Q4/bert_best_report.png Graphic file (type png)
 <use images/Q4/bert_best_report.png>
 Package pdftex.def Info: images/Q4/bert_best_report.png  used on input line 387.
 (pdftex.def)             Requested size: 252.0pt x 362.84059pt.
- [15 <./images/Q4/gemma_report.png>] [16]
+[15 <./images/Q4/gemma_report.png>] [16]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [17 <./images/Q4/bert_best_report.png>]
@@ -825,13 +829,13 @@ L3 programming layer <2024-01-04>
 Here is how much of TeX's memory you used:
  6200 strings out of 474486
  112828 string characters out of 5743754
- 1962542 words of memory out of 5000000
+ 1961542 words of memory out of 5000000
  28409 multiletter control sequences out of 15000+600000
  606577 words of font info for 136 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  69i,11n,79p,1719b,384s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Report.pdf (22 pages, 6189597 bytes).
+Output written on Report.pdf (22 pages, 6190271 bytes).
 PDF statistics:
  223 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
