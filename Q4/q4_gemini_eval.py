@@ -14,7 +14,7 @@ from sklearn.metrics import (
 # API configuration taken from: https://ai.google.dev/gemini-api/docs/quickstart?hl=es-419
 # Reasoning logic taken from: https://ai.google.dev/gemini-api/docs/thinking?hl=es-419
         
-GEMINI_API_KEY = "AIzaSyANge03Cu83ioyMtavor3UqBcAiC2AgH3s" 
+GEMINI_API_KEY = "[YOUR_API_KEY_HERE]" 
 
 client = genai.Client(api_key=GEMINI_API_KEY)
 MODEL_NAME = "models/gemma-3-4b-it"
@@ -70,7 +70,7 @@ def evaluate_model(y_true, y_pred, model_name, output_path="reports/"):
 
 try:
     df_test = pd.read_csv("test_df_processed.csv")
-    df_test = df_test.head(1000) 
+    df_test = df_test.head(10) 
 except:
     print("Error loading test dataset.")
     exit()
@@ -138,6 +138,6 @@ else:
 evaluate_model(
     y_true=y_true,
     y_pred=y_pred,
-    model_name="Gemini gemma-3-4b-it",
+    model_name="Gemini gemma-3-4b-it_prueba",
 )
 
