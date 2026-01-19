@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1768863387.28434 "z:/Proyectos/Data/LLM-Based-Sentiment-Analysis/docs/Report.tex" "Report.pdf" "Report" 1768863401.77185 0
+["pdflatex"] 1768863783.09856 "z:/Proyectos/Data/LLM-Based-Sentiment-Analysis/docs/Report.tex" "Report.pdf" "Report" 1768863796.81175 0
   "C:/Users/jdani/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1768793951.54004 82507 a9eef8696c92627b87e9975edea03b2a ""
   "C:/Users/jdani/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1762879432.78351 24225047 017665dacde6f628aa195cd7e7feb06a ""
   "C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 1194fb36dfcb11d9ae9802f2b00b60a3 ""
@@ -94,7 +94,7 @@
   "C:/Users/jdani/AppData/Local/Programs/MiKTeX/tex/latex/psnfss/ot1ptm.fd" 1585253778 1007 39eda417ef5837ce5e38661cfad2cedf ""
   "C:/Users/jdani/AppData/Local/Programs/MiKTeX/tex/latex/subfig/subfig.sty" 1121281010 22049 adc8323c809ccc2c21f05c93c1fe6ff3 ""
   "C:/Users/jdani/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1700127522 55487 80a65caedd3722f4c20a14a69e785d8f ""
-  "Report.aux" 1768863401.46904 20353 9031b49864138655ee47951d5e7508b2 "pdflatex"
+  "Report.aux" 1768863796.54151 20353 a33d22ef67042ccae1475e2b6803b7f8 "pdflatex"
   "images/Q0/Distribution_of_sentiments.png" 1768761954.61946 17539 c8591e12db71f15e3e910483e6c33cb9 ""
   "images/Q0/sentimentbycountry.png" 1768761954.61946 36422 ac1cd48d845c5dac05270d52333eced9 ""
   "images/Q0/sentimentbytypeoftweet.png" 1768761954.62048 22360 8487ae8bf521a7d933ee0315f6a9649d ""
@@ -133,10 +133,10 @@
   "images/Q6/bert_input_rep.jpg" 1768852284.04192 35090 9f32018185c4b16f7385813544d2fdba ""
   "images/Q6/bert_ner_table.jpg" 1768852284.04292 29717 f88e919a473dbcc420bbfd9cc52d5266 ""
   "images/Q7/BERT_+_LoRA_(SEQ_CLS)_Full_Report.png" 1768856651.31139 494721 f38286ec4905d44b60337daf63e3d19e ""
-  "sections/Q1.tex" 1768809413.12288 16684 e1d7126298e87a8211e3837ac3aa208a ""
+  "sections/Q1.tex" 1768863767.73233 16647 148c52ed65ed540fa6023b309593277e ""
   "sections/Q3.tex" 1768847782.14821 13506 a3b2ceeb681a8e7d90135ba0b4426f3a ""
   "sections/Q7.tex" 1768860757.71675 4860 74e29e015f835123efb382ba42f8f263 ""
-  "z:/Proyectos/Data/LLM-Based-Sentiment-Analysis/docs/Report.tex" 1768863370.98236 73454 77521d5b760e3a13bfa267dd8a3d7370 ""
+  "z:/Proyectos/Data/LLM-Based-Sentiment-Analysis/docs/Report.tex" 1768863446.52632 73454 77521d5b760e3a13bfa267dd8a3d7370 ""
   (generated)
   "Report.aux"
   "Report.log"
