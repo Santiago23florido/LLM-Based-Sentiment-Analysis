@@ -538,9 +538,11 @@ The input representation for a given token is constructed by summing three disti
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=\linewidth]{images/Q6/bert_input_rep.jpg}
-  \caption{BERT input representation. The input embeddings are the sum of the token embeddings, the segmentation embeddings, and the position embeddings \cite{b_bert}.}
+  \caption{BERT input representation \cite{b_bert}.}
   \label{fig:bert_input}
 \end{figure}
+
+As illustrated in Fig.~\ref{fig:bert_input}, each input token is mapped to an embedding that combines three components: token embeddings (lexical identity), segment embeddings (sentence/segment membership), and position embeddings (token order). In addition, every sequence begins with the special classification token \texttt{[CLS]}. The final hidden state associated with \texttt{[CLS]} ($C \in \mathbb{R}^H$) is commonly used as an aggregate representation of the whole sequence for downstream classification. A separator token \texttt{[SEP]} is used to delimit (or separate) sequences when required.
 
 Every sequence starts with a special classification token (\texttt{[CLS]}). The final hidden state corresponding to this token ($C \in \mathbb{R}^H$) is used as the aggregate sequence representation for classification tasks. A separator token (\texttt{[SEP]}) is used to distinguish between sequences.
 
@@ -566,7 +568,7 @@ As demonstrated in the ablation studies by Devlin et al., BERT can be applied to
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.85\linewidth]{images/Q6/bert_ner_table.jpg}
-  \caption{Feature-based approach results on CoNLL-2003 NER. Concatenating the last 4 hidden layers yields performance comparable to fine-tuning \cite{b_bert}.}
+  \caption{Feature-based approach results on CoNLL-2003 NER.}
   \label{fig:bert_table}
 \end{figure}
 

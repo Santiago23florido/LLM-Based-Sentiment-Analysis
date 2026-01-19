@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.11.11)  20 JAN 2026 00:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.11.11)  20 JAN 2026 00:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -576,10 +576,15 @@ File: images/Q6/bert_input_rep.jpg Graphic file (type jpg)
 <use images/Q6/bert_input_rep.jpg>
 Package pdftex.def Info: images/Q6/bert_input_rep.jpg  used on input line 540.
 (pdftex.def)             Requested size: 252.0pt x 76.321pt.
+
+Underfull \hbox (badness 1484) in paragraph at lines 545--546
+\OT1/ptm/m/n/10 em-bed-dings (lex-i-cal iden-tity), seg-ment em-bed-dings (sen-
+ []
+
 <images/Q6/bert_ner_table.jpg, id=142, 220.57407pt x 184.43906pt>
 File: images/Q6/bert_ner_table.jpg Graphic file (type jpg)
 <use images/Q6/bert_ner_table.jpg>
-Package pdftex.def Info: images/Q6/bert_ner_table.jpg  used on input line 568.
+Package pdftex.def Info: images/Q6/bert_ner_table.jpg  used on input line 570.
 (pdftex.def)             Requested size: 214.20154pt x 179.11673pt.
 (sections/Q7.tex
 <images/Q7/BERT_+_LoRA_(SEQ_CLS)_Full_Report.png, id=143, 715.2321pt x 1514.0565pt>
@@ -603,207 +608,207 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--31
  []
 
 ) [20 <./images/Q7/BERT_+_LoRA_(SEQ_CLS)_Full_Report.png>]
-Underfull \hbox (badness 1430) in paragraph at lines 591--592
+Underfull \hbox (badness 1430) in paragraph at lines 593--594
 []\OT1/ptm/m/n/8 T. Finn and A. Downie, ``How can sen-ti-ment anal-y-sis be used
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 597--598
+Underfull \hbox (badness 10000) in paragraph at lines 599--600
 []\OT1/ptm/m/n/8 The NLTK Project, ``Sam-ple us-age for cor-pus,'' \OT1/ptm/m/it/8 NLTK
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 597--598
+Underfull \hbox (badness 10000) in paragraph at lines 599--600
 \OT1/ptm/m/it/8 Doc-u-men-ta-tion\OT1/ptm/m/n/8 , ac-cessed Jan. 18, 2026. [On-line]. Avail-able:
  []
 
 
-Underfull \hbox (badness 1533) in paragraph at lines 599--600
+Underfull \hbox (badness 1533) in paragraph at lines 601--602
 \OT1/ptm/m/it/8 ta-tion\OT1/ptm/m/n/8 , ac-cessed Jan. 18, 2026. [On-line]. Avail-able: https://scikit-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 601--602
+Underfull \hbox (badness 10000) in paragraph at lines 603--604
 \OT1/ptm/m/it/8 scikit-learn Doc-u-men-ta-tion\OT1/ptm/m/n/8 , ac-cessed Jan.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 601--602
+Underfull \hbox (badness 10000) in paragraph at lines 603--604
 \OT1/ptm/m/n/8 18, 2026. [On-line]. Avail-able: https://scikit-
  []
 
 
-Overfull \hbox (44.77293pt too wide) in paragraph at lines 601--602
+Overfull \hbox (44.77293pt too wide) in paragraph at lines 603--604
 \OT1/ptm/m/n/8 learn.org/stable/modules/generated/sklearn.feature[]extraction.text.TfidfVectorizer.html 
  []
 
-
-Underfull \hbox (badness 5504) in paragraph at lines 603--604
+[21]
+Underfull \hbox (badness 5504) in paragraph at lines 605--606
 []\OT1/ptm/m/n/8 F. Se-bas-tiani, ``Ma-chine Learn-ing in Au-to-mated Text Cat-e-go-
  []
 
 
-Underfull \hbox (badness 6808) in paragraph at lines 603--604
+Underfull \hbox (badness 6808) in paragraph at lines 605--606
 \OT1/ptm/m/n/8 riza-tion,'' \OT1/ptm/m/it/8 ACM Com-put-ing Sur-veys\OT1/ptm/m/n/8 , vol. 34, no. 1, pp. 1--
  []
 
 
-Underfull \hbox (badness 2035) in paragraph at lines 603--604
+Underfull \hbox (badness 2035) in paragraph at lines 605--606
 \OT1/ptm/m/n/8 47, Mar. 2002, doi: 10.1145/505282.505283. [On-line]. Avail-able:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 605--606
+Underfull \hbox (badness 10000) in paragraph at lines 607--608
 []\OT1/ptm/m/n/8 scikit-learn de-vel-op-ers, ``sklearn.naive[]bayes.MultinomialNB,''
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 605--606
+Underfull \hbox (badness 10000) in paragraph at lines 607--608
 \OT1/ptm/m/it/8 scikit-learn Doc-u-men-ta-tion\OT1/ptm/m/n/8 . [On-line]. Avail-able: https://scikit-
  []
 
 
-Overfull \hbox (16.72516pt too wide) in paragraph at lines 605--606
+Overfull \hbox (16.72516pt too wide) in paragraph at lines 607--608
 \OT1/ptm/m/n/8 learn.org/stable/modules/generated/sklearn.naive[]bayes.MultinomialNB.html.
  []
 
-[21]
-Underfull \hbox (badness 10000) in paragraph at lines 607--608
+
+Underfull \hbox (badness 10000) in paragraph at lines 609--610
 []\OT1/ptm/m/n/8 scikit-learn de-vel-op-ers, ``sklearn.linear[]model.LogisticRegression,''
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 607--608
+Underfull \hbox (badness 10000) in paragraph at lines 609--610
 \OT1/ptm/m/it/8 scikit-learn Doc-u-men-ta-tion\OT1/ptm/m/n/8 . [On-line]. Avail-able: https://scikit-
  []
 
 
-Overfull \hbox (30.25291pt too wide) in paragraph at lines 607--608
+Overfull \hbox (30.25291pt too wide) in paragraph at lines 609--610
 \OT1/ptm/m/n/8 learn.org/stable/modules/generated/sklearn.linear[]model.LogisticRegression.html.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 611--612
+Underfull \hbox (badness 10000) in paragraph at lines 613--614
 []\OT1/ptm/m/n/8 scikit-learn de-vel-op-ers, ``sklearn.calibration.CalibratedClassifierCV,''
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 611--612
+Underfull \hbox (badness 10000) in paragraph at lines 613--614
 \OT1/ptm/m/it/8 scikit-learn Doc-u-men-ta-tion\OT1/ptm/m/n/8 , ac-cessed Jan.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 611--612
+Underfull \hbox (badness 10000) in paragraph at lines 613--614
 \OT1/ptm/m/n/8 18, 2026. [On-line]. Avail-able: https://scikit-
  []
 
 
-Overfull \hbox (32.22859pt too wide) in paragraph at lines 611--612
+Overfull \hbox (32.22859pt too wide) in paragraph at lines 613--614
 \OT1/ptm/m/n/8 learn.org/stable/modules/generated/sklearn.calibration.CalibratedClassifierCV.html 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 613--614
+Underfull \hbox (badness 10000) in paragraph at lines 615--616
 []\OT1/ptm/m/n/8 scikit-learn de-vel-op-ers, ``sklearn.ensemble.RandomForestClassifier,''
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 613--614
+Underfull \hbox (badness 10000) in paragraph at lines 615--616
 \OT1/ptm/m/it/8 scikit-learn Doc-u-men-ta-tion\OT1/ptm/m/n/8 , ac-cessed Jan.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 613--614
+Underfull \hbox (badness 10000) in paragraph at lines 615--616
 \OT1/ptm/m/n/8 18, 2026. [On-line]. Avail-able: https://scikit-
  []
 
 
-Overfull \hbox (31.37286pt too wide) in paragraph at lines 613--614
+Overfull \hbox (31.37286pt too wide) in paragraph at lines 615--616
 \OT1/ptm/m/n/8 learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 615--616
+Underfull \hbox (badness 10000) in paragraph at lines 617--618
 []\OT1/ptm/m/n/8 SciPy de-vel-op-ers, ``scipy.sparse.csr[]matrix,''
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 615--616
+Underfull \hbox (badness 10000) in paragraph at lines 617--618
 \OT1/ptm/m/it/8 SciPy Doc-u-men-ta-tion\OT1/ptm/m/n/8 . [On-line]. Avail-able:
  []
 
 
-Overfull \hbox (27.525pt too wide) in paragraph at lines 615--616
+Overfull \hbox (27.525pt too wide) in paragraph at lines 617--618
 \OT1/ptm/m/n/8 https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr[]matrix.html.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 617--618
+Underfull \hbox (badness 10000) in paragraph at lines 619--620
 []\OT1/ptm/m/n/8 PyTorch con-trib-u-tors, ``Data Load-ing and Pro-cess-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 617--618
+Underfull \hbox (badness 10000) in paragraph at lines 619--620
 \OT1/ptm/m/n/8 ing Tu-to-rial,'' \OT1/ptm/m/it/8 Py-Torch Tu-to-ri-als\OT1/ptm/m/n/8 . [On-line]. Avail-able:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 617--618
+Underfull \hbox (badness 10000) in paragraph at lines 619--620
 \OT1/ptm/m/n/8 https://docs.pytorch.org/tutorials/beginner/data[]loading[]tutorial.html.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 621--622
+Underfull \hbox (badness 10000) in paragraph at lines 623--624
 []\OT1/ptm/m/n/8 scikit-learn de-vel-op-ers, ``sklearn.preprocessing.StandardScaler,''
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 621--622
+Underfull \hbox (badness 10000) in paragraph at lines 623--624
 \OT1/ptm/m/it/8 scikit-learn Doc-u-men-ta-tion\OT1/ptm/m/n/8 , ac-cessed Jan.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 621--622
+Underfull \hbox (badness 10000) in paragraph at lines 623--624
 \OT1/ptm/m/n/8 18, 2026. [On-line]. Avail-able: https://scikit-
  []
 
 
-Overfull \hbox (16.80519pt too wide) in paragraph at lines 621--622
+Overfull \hbox (16.80519pt too wide) in paragraph at lines 623--624
 \OT1/ptm/m/n/8 learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html 
  []
 
 
-Underfull \hbox (badness 4726) in paragraph at lines 623--624
+Underfull \hbox (badness 4726) in paragraph at lines 625--626
 []\OT1/ptm/m/n/8 Sutriawan, Supri-adi Rus-tad, Gu-ruh Fa-jar Shidik, and Pu-jiono,
  []
 
 
-Underfull \hbox (badness 4391) in paragraph at lines 623--624
+Underfull \hbox (badness 4391) in paragraph at lines 625--626
 \OT1/ptm/m/n/8 ``Per-for-mance Eval-u-a-tion of Text Em-bed-ding Mod-els for Am-
  []
 
 
-Underfull \hbox (badness 2762) in paragraph at lines 623--624
+Underfull \hbox (badness 2762) in paragraph at lines 625--626
 \OT1/ptm/m/n/8 bi-gu-ity Clas-si-fi-ca-tion in In-done-sian News Cor-pus: A Com-par-a-
  []
 
 
-Underfull \hbox (badness 3291) in paragraph at lines 623--624
+Underfull \hbox (badness 3291) in paragraph at lines 625--626
 \OT1/ptm/m/n/8 tive Study of TF-IDF, Word2Vec, Fast-Text, BERT, and GPT,''
  []
 
 
-Underfull \hbox (badness 3849) in paragraph at lines 623--624
+Underfull \hbox (badness 3849) in paragraph at lines 625--626
 \OT1/ptm/m/n/8 1482, June 2025, doi: 10.18280/isi.300606. [On-line]. Avail-able:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 627--628
+Underfull \hbox (badness 10000) in paragraph at lines 629--630
 []\OT1/ptm/m/n/8 PyTorch con-trib-u-tors, ``torch.nn.Linear,'' \OT1/ptm/m/it/8 Py-Torch Doc-u-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 627--628
+Underfull \hbox (badness 10000) in paragraph at lines 629--630
 \OT1/ptm/m/it/8 men-ta-tion\OT1/ptm/m/n/8 , ac-cessed Jan. 18, 2026. [On-line]. Avail-able:
  []
 
@@ -835,7 +840,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  69i,11n,79p,1719b,384s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/jdani/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Report.pdf (22 pages, 6190271 bytes).
+Output written on Report.pdf (22 pages, 6190610 bytes).
 PDF statistics:
  223 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
