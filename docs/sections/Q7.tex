@@ -31,7 +31,6 @@ The LoRA setup is defined as follows:
     \item \textbf{\texttt{r=8}} sets the adapter rank (capacity). A moderate rank is typically sufficient for sentiment classification while limiting parameters and overfitting risk.
     \item \textbf{\texttt{lora\_alpha=16}} scales the LoRA contribution (often proportional to $\alpha/r$), supporting stable updates.
     \item \textbf{\texttt{lora\_dropout=0.1}} regularizes the LoRA path, reducing overfitting on non-massive datasets.
-    \item \textbf{\texttt{bias="none"}} keeps bias terms frozen (conservative and efficient), isolating the effect of LoRA adapters.
 \end{itemize}
 
 \subsection{Test-set results: BERT + LoRA (SEQ\_CLS)}
