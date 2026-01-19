@@ -345,6 +345,9 @@ Additionally, when using BERT embeddings, the transformations applied during the
 \end{enumerate}
 
 For training, cross-entropy loss is defined as the optimization criterion. In addition, a maximum of 50 training epochs is proposed, with a fast stopping criterion of $1\times 10^{-4}$, and a learning rate of $1\times 10^{-4}$ is used. The Adam optimizer is defined and applied to all trained networks. It is also important to highlight that the training algorithm used for these MLPs is the same as the one employed for training the other models, which allows their performance to be compared under consistent training conditions. The results of all pipelines described in this section are analyzed in the following section.
+
+\input{sections/Q3}
+
 \section{Q4: Comparative Analysis with Large Language Models (LLMs)}
 
 This analysis focuses on comparing the performance of the optimized BERT-based architecture against a modern Large Language Model (LLM). The fundamental objective is to evaluate whether a general-purpose generative model, operating solely in inference mode, is capable of competing with or surpassing the effectiveness of a specialized encoder that has undergone fine-tuning.
@@ -414,8 +417,6 @@ Gemma-3-4b-it & 4B & Few-Shot & 0.630 \\
     \item \textbf{Resource Efficiency:} The efficiency gap is substantial. The BERT model (110M parameters) can be deployed for inference with low latency on standard hardware. In contrast, the LLM (4B parameters) requires significant VRAM or API dependence, with observed latencies in the range of seconds per query.
     
 \end{enumerate}
-
-\input{sections/Q3}
 
 \section{Q5-Bert embeddings vs. Raw representations}
 
